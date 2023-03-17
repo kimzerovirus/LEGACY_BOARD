@@ -6,20 +6,16 @@ spring:
     password:
   jpa:
     hibernate:
-      ddl-auto: ${db.ddl:update}
-    properties:
-      hibernate:
-        dialect: org.hibernate.dialect.MySQL8Dialect
-      jakarta:
-        persistence:
-          validation:
-            mode: none
+      ddl-auto: ${db.ddl:create-drop}
     show-sql: false
 
   mvc:
     view:
       prefix: /WEB-INF/jsp/
       suffix: .jsp
+  h2:
+    console:
+      enabled: true
 
 server:
   servlet:
