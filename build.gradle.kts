@@ -31,6 +31,11 @@ dependencies {
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testImplementation("org.springframework.batch:spring-batch-test")
     testImplementation("org.springframework.security:spring-security-test")
+
+    // jsp
+    // https://mvnrepository.com/artifact/javax.servlet.jsp.jstl/jstl-api
+    implementation("javax.servlet.jsp.jstl:jstl-api:1.2")
+    implementation("org.apache.tomcat.embed:tomcat-embed-jasper") // 스프링 부트 내장 톰캣 사용
 }
 
 tasks.withType<KotlinCompile> {

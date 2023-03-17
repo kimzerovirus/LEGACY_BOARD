@@ -1,0 +1,29 @@
+spring:
+  datasource:
+    driver-class-name: org.h2.Driver
+    url: jdbc:h2:mem:testdb
+    username: sa
+    password:
+  jpa:
+    hibernate:
+      ddl-auto: ${db.ddl:update}
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL8Dialect
+      jakarta:
+        persistence:
+          validation:
+            mode: none
+    show-sql: false
+
+  mvc:
+    view:
+      prefix: /WEB-INF/jsp/
+      suffix: .jsp
+
+server:
+  servlet:
+    encoding:
+      charset: utf-8
+    context-path: /
+  port: 8080
