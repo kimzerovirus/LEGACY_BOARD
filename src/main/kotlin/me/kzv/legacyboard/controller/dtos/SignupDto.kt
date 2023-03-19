@@ -3,14 +3,17 @@ package me.kzv.legacyboard.controller.dtos
 import jakarta.validation.constraints.Email
 import jakarta.validation.constraints.NotBlank
 import jakarta.validation.constraints.Pattern
+import jakarta.validation.constraints.Size
 import me.kzv.legacyboard.entity.Member
+import org.springframework.security.crypto.password.PasswordEncoder
 
 data class SignupRequest(
     @field:NotBlank(message = "필수 정보입니다.")
-    @field:Email(message = "이메일만 입력 가능합니다.")
+    @field:Email(message = "이메일 형식이 아닙니다.")
     val email: String,
 
     @field:NotBlank(message = "필수 정보입니다.")
+    @field:Size(min=2, max=10, message = "닉네임은 2~10자로 입력하세요.")
     val nickname: String,
 
     @field:NotBlank(message = "필수 정보입니다.")
@@ -18,5 +21,5 @@ data class SignupRequest(
     val password: String,
 )
 
-fun SignupRequest.toEntity(): Member = Member(email, nickname, password)
+fun SignupRequest.toEntity(passwordEncoder: PasswordEncoder): Member = Member.createMember(email, nickname, password, passwordEncoder)
 

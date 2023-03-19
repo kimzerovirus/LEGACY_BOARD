@@ -5,6 +5,7 @@ import jakarta.persistence.Entity
 import jakarta.persistence.EnumType
 import jakarta.persistence.Enumerated
 import me.kzv.legacyboard.entity.enums.RoleType
+import org.springframework.security.crypto.password.PasswordEncoder
 
 @Entity
 class Member(
@@ -21,4 +22,12 @@ class Member(
     @Enumerated(EnumType.STRING)
     var role: RoleType = RoleType.USER
 ) : BaseEntity() {
+    companion object{
+        fun createMember(
+            email: String, nickname: String,
+            password: String, passwordEncoder: PasswordEncoder
+        ): Member {
+            return Member(email, nickname, passwordEncoder.encode(password))
+        }
+    }
 }

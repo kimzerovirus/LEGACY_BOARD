@@ -25,16 +25,17 @@ class MemberController (
 
     @GetMapping("/signup")
     fun signupPage(): String {
-        return "signup"
+        return "member/signup"
     }
 
     @PostMapping("/signup")
-    fun signup(@ModelAttribute("signupRequest") @Valid dto: SignupRequest, bindingResult: BindingResult, model: Model): String {
+    fun signup(
+        @ModelAttribute("signupRequest") @Valid dto: SignupRequest,
+        bindingResult: BindingResult, model: Model): String {
         if(bindingResult.hasErrors()){
-            print(bindingResult.hasErrors())
             model.addAttribute("email", dto.email)
             model.addAttribute("nickname", dto.nickname)
-            return "signup"
+            return "member/signup"
         }
         memberService.createMember(dto)
         return "redirect:/"
@@ -42,11 +43,11 @@ class MemberController (
 
     @GetMapping("/signin")
     fun signinPage(): String {
-        return "signin"
+        return "member/signin"
     }
 
-    @PostMapping("/signin")
-    fun signin(): String {
-        return "redirect:/"
+    @GetMapping("/mypage")
+    fun mypage():String {
+        return "member/mypage"
     }
 }
