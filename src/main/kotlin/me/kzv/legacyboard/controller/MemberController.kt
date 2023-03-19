@@ -4,6 +4,7 @@ import jakarta.validation.Valid
 import me.kzv.legacyboard.controller.dtos.SignupRequest
 import me.kzv.legacyboard.controller.validators.SignupRequestValidator
 import me.kzv.legacyboard.service.MemberService
+import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
 import org.springframework.validation.BindingResult
@@ -16,7 +17,9 @@ import org.springframework.web.bind.annotation.PostMapping
 @Controller
 class MemberController (
     private val memberService: MemberService,
-    private val signupRequestValidator: SignupRequestValidator
+    private val signupRequestValidator: SignupRequestValidator,
+    private val passwordEncoder: PasswordEncoder
+
 ){
     @InitBinder("signupRequest")
     fun initBinder(data: WebDataBinder) {
@@ -37,7 +40,7 @@ class MemberController (
             model.addAttribute("nickname", dto.nickname)
             return "member/signup"
         }
-        memberService.createMember(dto)
+        memberService.createMember(dto.toEntity(passwordEncoder))
         return "redirect:/"
     }
 

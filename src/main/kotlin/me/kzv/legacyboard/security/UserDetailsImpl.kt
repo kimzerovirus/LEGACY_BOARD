@@ -10,6 +10,7 @@ class UserDetailsImpl(
     val member: Member
 ) : UserDetails {
     override fun getAuthorities(): MutableCollection<out GrantedAuthority> {
+        // PREFIX 조심
 //        val roleList = mutableListOf<GrantedAuthority>()
 //        roleList.add(GrantedAuthority { "ROLE_" + this.member.role })
 //        return roleList
