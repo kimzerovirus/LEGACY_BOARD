@@ -2,19 +2,15 @@ package me.kzv.legacyboard.controller
 
 import me.kzv.legacyboard.controller.dtos.CreateBoardRequest
 import me.kzv.legacyboard.controller.dtos.EditBoardRequest
+import me.kzv.legacyboard.controller.dtos.PageRequestDto
+import me.kzv.legacyboard.controller.dtos.PageResponseDto
 import me.kzv.legacyboard.entity.Member
 import me.kzv.legacyboard.service.BoardService
-import org.springframework.data.domain.Pageable
-import org.springframework.data.domain.Sort
-import org.springframework.data.web.PageableDefault
 import org.springframework.http.ResponseEntity
 import org.springframework.security.core.Authentication
 import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
-import org.springframework.web.bind.annotation.GetMapping
-import org.springframework.web.bind.annotation.PostMapping
-import org.springframework.web.bind.annotation.RequestBody
-import org.springframework.web.bind.annotation.ResponseBody
+import org.springframework.web.bind.annotation.*
 
 
 @Controller
@@ -22,12 +18,10 @@ class BoardController(
     private val boardService: BoardService
 ) {
 
-    @GetMapping("/")
-    fun home(
-        model: Model,
-        @PageableDefault(size = 10, sort = ["id"], direction = Sort.Direction.DESC) pageable: Pageable
-    ): String {
-        model.addAttribute("boardList", boardService.getList(pageable))
+    @GetMapping("/", "")
+    fun home( model: Model, @RequestParam page: Int?): String {
+        val boardList = boardService.getList(PageRequestDto(page))
+        model.addAttribute("boardList", PageResponseDto(boardList))
         return "index"
     }
 
