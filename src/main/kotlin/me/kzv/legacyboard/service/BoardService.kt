@@ -3,6 +3,8 @@ package me.kzv.legacyboard.service
 import me.kzv.legacyboard.entity.Board
 import me.kzv.legacyboard.exception.TisException
 import me.kzv.legacyboard.repository.BoardRepository
+import org.springframework.data.domain.Page
+import org.springframework.data.domain.Pageable
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
@@ -23,8 +25,8 @@ class BoardService(
     }
 
     @Transactional(readOnly = true)
-    fun list() {
-
+    fun getList(pageable: Pageable): Page<Board> {
+        return boardRepository.findAll(pageable)
     }
 
     @Transactional
