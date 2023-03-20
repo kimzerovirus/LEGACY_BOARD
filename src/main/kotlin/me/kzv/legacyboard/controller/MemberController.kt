@@ -1,7 +1,7 @@
 package me.kzv.legacyboard.controller
 
 import jakarta.validation.Valid
-import me.kzv.legacyboard.controller.dtos.SignupRequest
+import me.kzv.legacyboard.controller.dtos.SignupRequestDto
 import me.kzv.legacyboard.controller.validators.SignupRequestValidator
 import me.kzv.legacyboard.service.MemberService
 import org.springframework.security.crypto.password.PasswordEncoder
@@ -33,7 +33,7 @@ class MemberController (
 
     @PostMapping("/signup")
     fun signup(
-        @ModelAttribute("signupRequest") @Valid dto: SignupRequest,
+        @ModelAttribute("signupRequest") @Valid dto: SignupRequestDto,
         bindingResult: BindingResult, model: Model): String {
         if(bindingResult.hasErrors()){
             model.addAttribute("email", dto.email)

@@ -4,7 +4,7 @@ import me.kzv.legacyboard.entity.Board
 import me.kzv.legacyboard.entity.Member
 import me.kzv.legacyboard.exception.TisException
 
-data class EditBoardRequest (
+data class EditBoardRequestDto (
     val id: Long,
     val title: String,
     val content: String,

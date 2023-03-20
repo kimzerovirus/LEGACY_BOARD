@@ -13,4 +13,14 @@ class MemberService(
     fun createMember(member: Member) {
         memberRepository.save(member)
     }
+
+    @Transactional
+    fun update(member: Member) {
+        memberRepository.save(member)
+    }
+
+    @Transactional
+    fun deleteMember(member: Member) {
+        memberRepository.delete(member)
+    }
 }

@@ -3,7 +3,7 @@ package me.kzv.legacyboard.controller.dtos
 import me.kzv.legacyboard.entity.Board
 import me.kzv.legacyboard.entity.Member
 
-data class CreateBoardRequest(
+data class CreateBoardRequestDto(
     val title: String,
     val content: String,
 ){

@@ -1,7 +1,7 @@
 package me.kzv.legacyboard.controller
 
-import me.kzv.legacyboard.controller.dtos.CreateBoardRequest
-import me.kzv.legacyboard.controller.dtos.EditBoardRequest
+import me.kzv.legacyboard.controller.dtos.CreateBoardRequestDto
+import me.kzv.legacyboard.controller.dtos.EditBoardRequestDto
 import me.kzv.legacyboard.controller.dtos.PageRequestDto
 import me.kzv.legacyboard.controller.dtos.PageResponseDto
 import me.kzv.legacyboard.entity.Member
@@ -32,7 +32,7 @@ class BoardController(
 
     @ResponseBody
     @PostMapping("api/v1/board/write")
-    fun createBoard(@RequestBody dto: CreateBoardRequest, authentication: Authentication): ResponseEntity<Any> {
+    fun createBoard(@RequestBody dto: CreateBoardRequestDto, authentication: Authentication): ResponseEntity<Any> {
         val member = authentication.principal as Member
         boardService.write(dto.toEntity(member))
         return ResponseEntity.ok().build()
@@ -45,7 +45,7 @@ class BoardController(
 
     @ResponseBody
     @PostMapping("api/v1/board/edit")
-    fun editBoard(@RequestBody dto: EditBoardRequest, authentication: Authentication): ResponseEntity<Any> {
+    fun editBoard(@RequestBody dto: EditBoardRequestDto, authentication: Authentication): ResponseEntity<Any> {
         val member = authentication.principal as Member
         dto.validateWriter(member)
         boardService.write(dto.toEntity(member))

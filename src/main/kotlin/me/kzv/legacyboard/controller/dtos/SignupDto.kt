@@ -7,7 +7,7 @@ import jakarta.validation.constraints.Size
 import me.kzv.legacyboard.entity.Member
 import org.springframework.security.crypto.password.PasswordEncoder
 
-data class SignupRequest(
+data class SignupRequestDto(
     @field:NotBlank(message = "필수 정보입니다.")
     @field:Email(message = "이메일 형식이 아닙니다.")
     val email: String,
