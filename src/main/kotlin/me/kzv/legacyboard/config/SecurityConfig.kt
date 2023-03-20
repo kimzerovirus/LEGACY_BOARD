@@ -27,12 +27,14 @@ class SecurityConfig(
             .and().httpBasic().disable()
 
         http
+            .anonymous().authorities(RoleType.ANONYMOUS.toString()).and() // https://stackoverflow.com/questions/33327677/java-based-configuration-to-enable-spring-security-anonymous-access
             .authorizeHttpRequests { authorize ->
                 authorize
                     .shouldFilterAllDispatcherTypes(false)
-                    .requestMatchers("/", "/signin", "/signup").permitAll()
+                    .requestMatchers("/", "/signin", "/signup", "/board/view/**").permitAll()
                     .requestMatchers(PathRequest.toH2Console()).permitAll()
-                    .anyRequest().hasAnyRole(RoleType.USER.toString(), RoleType.ADMIN.toString())
+                    .requestMatchers("/board/write", "/board/edit/**", "/api/v1/**", "/mypage").hasAnyRole(RoleType.USER.toString(), RoleType.ADMIN.toString())
+                    .anyRequest().authenticated()
             }
 
         http

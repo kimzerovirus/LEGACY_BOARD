@@ -15,4 +15,8 @@ class Board(
     var content: String,
 ) : BaseEntity() {
     var count: Int = 0
+
+    fun update() {
+        this.count += 1
+    }
 }

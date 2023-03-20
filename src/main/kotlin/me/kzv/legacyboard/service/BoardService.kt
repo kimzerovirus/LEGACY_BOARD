@@ -20,8 +20,15 @@ class BoardService(
     }
 
     @Transactional(readOnly = true)
-    fun read(boardId: Long): Board {
+    fun getOne(boardId: Long): Board {
         return boardRepository.findByIdOrNull(boardId) ?: throw TisException("게시글이 존재하지 않습니다.")
+    }
+
+    @Transactional
+    fun read(boardId: Long): Board {
+        val board = boardRepository.findByIdOrNull(boardId) ?: throw TisException("게시글이 존재하지 않습니다.")
+        board.update()
+        return board
     }
 
     @Transactional(readOnly = true)

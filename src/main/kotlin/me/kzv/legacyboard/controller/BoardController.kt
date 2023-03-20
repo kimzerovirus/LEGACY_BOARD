@@ -5,6 +5,7 @@ import me.kzv.legacyboard.controller.dtos.EditBoardRequestDto
 import me.kzv.legacyboard.controller.dtos.PageRequestDto
 import me.kzv.legacyboard.controller.dtos.PageResponseDto
 import me.kzv.legacyboard.entity.Member
+import me.kzv.legacyboard.exception.TisException
 import me.kzv.legacyboard.service.BoardService
 import org.springframework.http.ResponseEntity
 import org.springframework.security.core.Authentication
@@ -19,10 +20,16 @@ class BoardController(
 ) {
 
     @GetMapping("/", "")
-    fun home( model: Model, @RequestParam page: Int?): String {
+    fun home(model: Model, @RequestParam page: Int?): String {
         val boardList = boardService.getList(PageRequestDto(page))
         model.addAttribute("boardList", PageResponseDto(boardList))
         return "index"
+    }
+
+    @GetMapping("/board/view/{id}")
+    fun getBoard(@PathVariable id: Long, model: Model): String {
+        model.addAttribute("board", boardService.read(id))
+        return "board/boardview"
     }
 
     @GetMapping("/board/write")
@@ -38,8 +45,12 @@ class BoardController(
         return ResponseEntity.ok().build()
     }
 
-    @GetMapping("/board/edit")
-    fun edit(): String {
+    @GetMapping("/board/edit/{id}")
+    fun edit(@PathVariable id: Long, authentication: Authentication, model: Model): String {
+        val member = authentication.principal as Member
+        val board = boardService.getOne(id)
+        validateWriter(writerId = board.member.id!!, authenticatedId = member.id!!)
+        model.addAttribute("board", board)
         return "board/edit"
     }
 
@@ -47,9 +58,12 @@ class BoardController(
     @PostMapping("api/v1/board/edit")
     fun editBoard(@RequestBody dto: EditBoardRequestDto, authentication: Authentication): ResponseEntity<Any> {
         val member = authentication.principal as Member
-        dto.validateWriter(member)
+        validateWriter(writerId = dto.memberId, authenticatedId = member.id!!)
         boardService.write(dto.toEntity(member))
         return ResponseEntity.ok().build()
     }
 
+    private fun validateWriter(writerId: Long, authenticatedId: Long) {
+        if (writerId != authenticatedId) throw TisException("로그인한 회원과 글 작성자가 다름!!!")
+    }
 }

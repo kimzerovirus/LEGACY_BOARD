@@ -22,7 +22,7 @@
         <c:forEach var="board" items="${boardList.content}">
             <tr>
                 <td class="py-3">
-                    <a href="" style="text-decoration: none; cursor: pointer;">
+                    <a href="/board/view/${board.id}" style="text-decoration: none; cursor: pointer;">
                         <div class="d-flex justify-content-between text-secondary mb-2">
                             <p style="margin: 0; font-size: 0.875rem;">${board.member.nickname} · ${board.count}</p>
                             <c:set var="today" value="<%=new java.util.Date()%>"/>

@@ -9,20 +9,20 @@
 
 <div class="card">
     <div class="card-body">
-        <h4 class="card-title">수정하기</h4>
+        <h4 class="card-title m-0">수정하기</h4>
     </div>
 </div>
 
 <h5 class="mt-3">제목</h5>
-<input type="text" class="w-100 ps-2" placeholder="제목을 입력해주세요." id="title" name="title">
+<input type="text" class="w-100 ps-2" placeholder="제목을 입력해주세요." id="title" name="title" value="${board.title}">
 
 <h5 class="mt-3">본문</h5>
 <div class="card">
-    <div id="summernote"></div>
+    <div id="summernote">${board.content}</div>
 </div>
 
 <div class="d-flex justify-content-center mt-3">
-    <a href="/" class="btn btn-outline-secondary btn-lg px-5">취소</a>
+    <a href="/board/view/${board.id}" class="btn btn-outline-secondary btn-lg px-5">취소</a>
     <button type="button" class="btn btn-primary btn-lg px-5" id="editBoard">등록</button>
 </div>
 

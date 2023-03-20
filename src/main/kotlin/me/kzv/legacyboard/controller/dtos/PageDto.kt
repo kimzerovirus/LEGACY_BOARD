@@ -10,7 +10,7 @@ const val pageSize = 8
 class PageRequestDto(
     page: Int?,
 ) : PageRequest(
-    (page ?: 1).minus(1), // pageable start on 0
+    (page ?: 1).minus(1), // pageable 0부터 시작
     pageSize, Sort.by("id").descending())
 
 class PageResponseDto(page: Page<*>) {
@@ -23,7 +23,7 @@ class PageResponseDto(page: Page<*>) {
     var checkNext: Boolean = false
 
     init {
-        cpage = page.pageable.pageNumber + 1 // pageable start on 0
+        cpage = page.pageable.pageNumber + 1 // pageable 0부터 시작
         val tempEnd = ceil(cpage / pageSize.toDouble()).toInt() * pageSize
         val startPage = tempEnd - (pageSize - 1)
         val endPage = if (totalPage > tempEnd) tempEnd else totalPage

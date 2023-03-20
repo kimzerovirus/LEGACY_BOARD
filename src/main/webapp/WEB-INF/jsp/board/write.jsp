@@ -9,7 +9,7 @@
 
 <div class="card">
     <div class="card-body">
-        <h4 class="card-title">작성하기</h4>
+        <h4 class="card-title m-0">작성하기</h4>
     </div>
 </div>
 
