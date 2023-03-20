@@ -1,4 +1,18 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
+
+<%-- 인증된 사용자가 글쓴이와 다르다면 홈으로 이동 --%>
+<sec:authorize access="isAuthenticated()">
+    <sec:authentication property="principal.id" var="currentUserId"/>
+    <c:if test="${board.member.id != currentUserId}">
+        <script>
+            window.location = '/'
+        </script>
+    </c:if>
+</sec:authorize>
+
+
 
 <title>KIMZEROVIRUS | 수정하기</title>
 
@@ -55,7 +69,9 @@
         const method = 'POST'
         const body = {
             title: document.getElementById('title').value || '',
-            content: $('#summernote').summernote('code') || ''
+            content: $('#summernote').summernote('code') || '',
+            boardId: ${board.id},
+            memberId: ${currentUserId}
         }
 
         if (body.title === '') {
@@ -76,7 +92,7 @@
             body: JSON.stringify(body)
         }).then(res => {
             if (res.status === 200) {
-                window.location = '/'
+                window.location = '/board/view/${board.id}'
                 return res.json();
             } else {
                 alert('요청이 실패하였습니다.')

@@ -29,7 +29,7 @@
                     <c:if test="${board.member.id == currentUserId}">
                         <div class="d-flex">
                             <a href="/board/edit/${board.id}" class="btn px-1" style="font-size: 0.875rem">수정</a>
-                            <span class="btn px-1" style="font-size: 0.875rem">삭제</span>
+                            <span class="btn px-1" style="font-size: 0.875rem" id="deleteBoard">삭제</span>
                         </div>
                     </c:if>
                 </sec:authorize>
@@ -44,3 +44,35 @@
     </div>
 </c:if>
 <jsp:include page="../../layout/footer.jsp"></jsp:include>
+
+<script>
+    document.getElementById('deleteBoard').addEventListener('click', () => {
+        const url = 'http://localhost:8080/api/v1/board/delete'
+        const method = 'POST'
+        const body = {
+            boardId: ${board.id},
+            memberId: ${currentUserId}
+        }
+        apiCall(url, method, body)
+    })
+
+    async function apiCall(url, method, body) {
+        return fetch(url, {
+            method,
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(body)
+        }).then(res => {
+            if (res.status === 200) {
+                alert("삭제 완료!!")
+                window.location = '/'
+                return res.json();
+            } else {
+                alert('요청이 실패하였습니다.')
+                return Promise.reject(res);
+            }
+        }).catch(err => {
+        })
+    }
+</script>

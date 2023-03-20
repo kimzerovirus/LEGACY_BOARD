@@ -1,9 +1,6 @@
 package me.kzv.legacyboard.controller
 
-import me.kzv.legacyboard.controller.dtos.CreateBoardRequestDto
-import me.kzv.legacyboard.controller.dtos.EditBoardRequestDto
-import me.kzv.legacyboard.controller.dtos.PageRequestDto
-import me.kzv.legacyboard.controller.dtos.PageResponseDto
+import me.kzv.legacyboard.controller.dtos.*
 import me.kzv.legacyboard.entity.Member
 import me.kzv.legacyboard.exception.TisException
 import me.kzv.legacyboard.service.BoardService
@@ -49,7 +46,11 @@ class BoardController(
     fun edit(@PathVariable id: Long, authentication: Authentication, model: Model): String {
         val member = authentication.principal as Member
         val board = boardService.getOne(id)
-        validateWriter(writerId = board.member.id!!, authenticatedId = member.id!!)
+        try {
+            validateWriter(writerId = board.member.id!!, authenticatedId = member.id!!)
+        } catch (e: TisException) {
+            return "redirect:/"
+        }
         model.addAttribute("board", board)
         return "board/edit"
     }
@@ -59,7 +60,17 @@ class BoardController(
     fun editBoard(@RequestBody dto: EditBoardRequestDto, authentication: Authentication): ResponseEntity<Any> {
         val member = authentication.principal as Member
         validateWriter(writerId = dto.memberId, authenticatedId = member.id!!)
-        boardService.write(dto.toEntity(member))
+        boardService.edit(dto.boardId, title = dto.title, content = dto.content)
+        return ResponseEntity.ok().build()
+    }
+
+
+    @ResponseBody
+    @PostMapping("api/v1/board/delete")
+    fun deleteBoard(@RequestBody dto: DeleteBoardRequestDto, authentication: Authentication): ResponseEntity<Any> {
+        val member = authentication.principal as Member
+        validateWriter(writerId = dto.memberId, authenticatedId = member.id!!)
+        boardService.delete(dto.boardId)
         return ResponseEntity.ok().build()
     }
 

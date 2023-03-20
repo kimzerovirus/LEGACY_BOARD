@@ -27,7 +27,7 @@ class BoardService(
     @Transactional
     fun read(boardId: Long): Board {
         val board = boardRepository.findByIdOrNull(boardId) ?: throw TisException("게시글이 존재하지 않습니다.")
-        board.update()
+        board.updateCount()
         return board
     }
 
@@ -37,12 +37,13 @@ class BoardService(
     }
 
     @Transactional
-    fun update(board: Board) {
-        boardRepository.save(board)
+    fun edit(boardId: Long, title: String, content: String) {
+        val board = boardRepository.findByIdOrNull(boardId) ?: throw TisException("게시글이 존재하지 않습니다.")
+        board.update(title = title, content = content)
     }
 
     @Transactional
-    fun delete(board: Board) {
-        boardRepository.delete(board)
+    fun delete(boardId: Long) {
+        boardRepository.deleteById(boardId)
     }
 }

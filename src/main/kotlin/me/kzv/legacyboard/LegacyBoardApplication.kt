@@ -19,12 +19,16 @@ class LegacyBoardApplication(
     private val boardRepository: BoardRepository,
 ) : CommandLineRunner {
     override fun run(vararg args: String) {
+        memberRepository.save(
+            Member.createMember(
+                email = "admin@kimzerovirus.com", nickname = "어드민",
+                password = "test1234", passwordEncoder = passwordEncoder
+            ).apply { this.role = RoleType.ADMIN })
         val member = memberRepository.save(
             Member.createMember(
                 email = "test@test.com",nickname = "테스터1",
                 password = "test1234", passwordEncoder = passwordEncoder
-            ).apply { this.role = RoleType.ADMIN }
-        )
+            ).apply { this.role = RoleType.ADMIN })
         (1..12).forEach { boardRepository.save(Board(member, "test$it","content test$it")) }
     }
 }
