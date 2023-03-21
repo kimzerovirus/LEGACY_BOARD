@@ -9,7 +9,7 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>KIMZEROVIRUS</title>
-    <link rel="stylesheet" href="/vendor/bootstrap/bootstrap.min.css">
+    <link rel="stylesheet" href="/resources/vendor/bootstrap/bootstrap.min.css">
     <style>
         @font-face {
             font-family: 'Dovemayo-Medium';

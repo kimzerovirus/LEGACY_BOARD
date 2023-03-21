@@ -6,8 +6,7 @@
 
 <div class="card">
     <div class="card-body">
-        <h4 class="card-title">마이페이지</h4>
-        <a href="/logout" class="card-link">로그아웃</a>
+        <h4 class="card-title">${error}</h4>
     </div>
 </div>
 

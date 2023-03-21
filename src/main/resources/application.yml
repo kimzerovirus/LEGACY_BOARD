@@ -10,6 +10,7 @@ spring:
     show-sql: false
 
   mvc:
+    throw-exception-if-no-handler-found: true
     view:
       prefix: /WEB-INF/jsp/
       suffix: .jsp
@@ -17,9 +18,13 @@ spring:
     console:
       enabled: true
 
+  web.resources.add-mappings: false # https://www.leeby.one/posts/spring.web.resources.add-mappings-%EC%98%B5%EC%85%98/
+
 server:
   servlet:
     encoding:
       charset: utf-8
     context-path: /
   port: 8080
+
+
