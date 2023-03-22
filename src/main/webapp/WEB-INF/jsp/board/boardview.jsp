@@ -41,6 +41,27 @@
         <div class="card-body" style="min-height: 300px;">
             ${board.content}
         </div>
+        <div class="card-footer pb-3">
+            <table class="table">
+                <tr>
+                    <th>댓글 목록</th>
+                </tr>
+            </table>
+            <form id="createReply">
+                <div class="d-flex align-items-end flex-column">
+                        <textarea name="reply" id="reply" class="w-100 p-2" style="resize: none; height: auto"></textarea>
+                        <button class="btn btn-primary my-1">댓글 등록</button>
+                </div>
+            </form>
+
+            <div class="border-bottom border-1 border-primary">
+                <div class="d-flex justify-content-between text-secondary mb-2">
+                    <p style="margin: 0; font-size: 0.875rem;">reply.member.nickname</p>
+                    <p style="margin: 0; font-size: 0.875rem;">2023-01-01</p>
+                </div>
+                <p class="m-0">댓글</p>
+            </div>
+        </div>
     </div>
 </c:if>
 <jsp:include page="../../layout/footer.jsp"></jsp:include>
@@ -75,4 +96,19 @@
         }).catch(err => {
         })
     }
+
+    const textarea = document.getElementById('reply');
+    function resize(obj) {
+        if(obj.scrollHeight < 200){
+            obj.style.overflowY = 'hidden';
+            obj.style.height = '1px'
+            obj.style.height = (16 + obj.scrollHeight) + 'px';
+        } else {
+            obj.style.height = '200px';
+            obj.style.overflowY = 'scroll';
+        }
+    }
+
+    textarea.addEventListener('keyup', ()=> resize(textarea))
+    textarea.addEventListener('keydown', ()=> resize(textarea))
 </script>

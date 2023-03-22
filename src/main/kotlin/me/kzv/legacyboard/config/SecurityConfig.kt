@@ -34,7 +34,7 @@ class SecurityConfig(
                     .requestMatchers("/", "/signin", "/signup", "/board/view/**").permitAll()
                     .requestMatchers(PathRequest.toH2Console()).permitAll()
                     .requestMatchers("/board/write", "/board/edit/**", "/api/v1/**", "/mypage").hasAnyRole(RoleType.USER.toString(), RoleType.ADMIN.toString())
-                    .anyRequest().authenticated()
+                    .anyRequest().permitAll()
             }
 
         http
@@ -52,8 +52,7 @@ class SecurityConfig(
 
     @Bean
     fun webSecurityCustomizer(): WebSecurityCustomizer {
-        return WebSecurityCustomizer { web: WebSecurity ->
-            web.ignoring().requestMatchers("/vendor/**")
+        return WebSecurityCustomizer { it.ignoring().requestMatchers("/resources/**")
         }
     }
 }
