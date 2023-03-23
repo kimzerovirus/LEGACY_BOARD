@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>
+
 <title>KIMZEROVIRUS | 로그인</title>
 
 <style>
@@ -16,7 +16,7 @@
     <h1 class="my-3 text-center">로그인</h1>
         <div class="mb-3 mt-3">
             <label for="username" class="form-label">Email:</label>
-            <input type="email" class="form-control" id="username" placeholder="Enter email" name="username">
+            <input type="email" class="form-control" id="username" placeholder="Enter email" name="username" value="">
             <strong class="text-danger small" id="emailConfirm"></strong>
         </div>
 

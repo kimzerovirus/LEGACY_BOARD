@@ -2,12 +2,12 @@ package me.kzv.legacyboard.config
 
 import me.kzv.legacyboard.entity.enums.RoleType
 import me.kzv.legacyboard.security.AuthenticationProviderImpl
+import me.kzv.legacyboard.security.LoginSuccessHandler
 import me.kzv.legacyboard.security.UserDetailsServiceImpl
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.security.config.annotation.web.builders.HttpSecurity
-import org.springframework.security.config.annotation.web.builders.WebSecurity
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity
 import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer
 import org.springframework.security.web.SecurityFilterChain
@@ -41,7 +41,8 @@ class SecurityConfig(
             .formLogin()
             .loginPage("/signin")
             .loginProcessingUrl("/signin")
-            .defaultSuccessUrl("/", true)
+//            .defaultSuccessUrl("/", false) // https://www.inflearn.com/questions/193737/defaultsuccessurl-%EC%9E%91%EB%8F%99-%EC%88%9C%EC%84%9C
+            .successHandler(LoginSuccessHandler("/"))
 
         http
             .userDetailsService(userDetailsService)
