@@ -66,6 +66,9 @@
 </c:if>
 <jsp:include page="../../layout/footer.jsp"></jsp:include>
 
+
+<script src="/resources/js/autotextarea.js"></script>
+<script src="/resources/js/api.js"></script>
 <script>
     document.getElementById('deleteBoard').addEventListener('click', () => {
         const url = 'http://localhost:8080/api/v1/board/delete'
@@ -74,41 +77,23 @@
             boardId: ${board.id},
             memberId: ${currentUserId}
         }
+        const msg = '삭제완료!!'
+        apiCall(url, method, body, goMain(msg))
+    })
+
+    document.getElementById('createReply').addEventListener('submit', (e) => {
+        e.preventDefault()
+        const url = 'http://localhost:8080/api/v1/rpely/create'
+        const method = 'POST'
+        const body = {
+            reply: e.target.reply.value
+        }
         apiCall(url, method, body)
     })
 
-    async function apiCall(url, method, body) {
-        return fetch(url, {
-            method,
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify(body)
-        }).then(res => {
-            if (res.status === 200) {
-                alert("삭제 완료!!")
-                window.location = '/'
-                return res.json();
-            } else {
-                alert('요청이 실패하였습니다.')
-                return Promise.reject(res);
-            }
-        }).catch(err => {
-        })
-    }
+    document.getElementById('createReply').addEventListener('focus', () => {
+        if(!${currentUserId}) alert('로그인이 필요합니다.')
+    })
 
-    const textarea = document.getElementById('reply');
-    function resize(obj) {
-        if(obj.scrollHeight < 200){
-            obj.style.overflowY = 'hidden';
-            obj.style.height = '1px'
-            obj.style.height = (16 + obj.scrollHeight) + 'px';
-        } else {
-            obj.style.height = '200px';
-            obj.style.overflowY = 'scroll';
-        }
-    }
-
-    textarea.addEventListener('keyup', ()=> resize(textarea))
-    textarea.addEventListener('keydown', ()=> resize(textarea))
+    new Autotextarea(document.getElementById('reply'))
 </script>
