@@ -8,15 +8,20 @@ class Board(
     @JoinColumn(name = "member_id")
     val member: Member,
 
+    @OneToMany(mappedBy = "board")
+    val replyList: MutableList<Reply> = mutableListOf(),
+
     @Column(nullable = false)
     var title: String,
 
     @Column(nullable = false, columnDefinition = "TEXT")
     var content: String,
 ) : BaseEntity() {
+
+
     var count: Int = 0
 
-    fun update(title: String, content: String){
+    fun update(title: String, content: String) {
         this.title = title
         this.content = content
     }

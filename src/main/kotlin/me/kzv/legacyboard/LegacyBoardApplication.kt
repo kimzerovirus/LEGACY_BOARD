@@ -29,7 +29,7 @@ class LegacyBoardApplication(
                 email = "test@test.com",nickname = "테스터1",
                 password = "test1234", passwordEncoder = passwordEncoder
             ).apply { this.role = RoleType.ADMIN })
-        (1..12).forEach { boardRepository.save(Board(member, "test$it","content test$it")) }
+        (1..12).forEach { boardRepository.save(Board(member, title = "test$it", content = "content test$it")) }
     }
 }
 

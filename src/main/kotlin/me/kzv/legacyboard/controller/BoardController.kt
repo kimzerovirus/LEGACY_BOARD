@@ -56,11 +56,11 @@ class BoardController(
     }
 
     @ResponseBody
-    @PostMapping("api/v1/board/edit")
-    fun editBoard(@RequestBody dto: EditBoardRequestDto, authentication: Authentication): ResponseEntity<Any> {
+    @PostMapping("api/v1/board/edit/{boardId}")
+    fun editBoard(@PathVariable boardId: Long, @RequestBody dto: EditBoardRequestDto, authentication: Authentication): ResponseEntity<Any> {
         val member = authentication.principal as Member
         validateWriter(writerId = dto.memberId, authenticatedId = member.id!!)
-        boardService.edit(dto.boardId, title = dto.title, content = dto.content)
+        boardService.edit(boardId, title = dto.title, content = dto.content)
         return ResponseEntity.ok().build()
     }
 

@@ -21,7 +21,7 @@ class BoardService(
 
     @Transactional(readOnly = true)
     fun getOne(boardId: Long): Board {
-        return boardRepository.findByIdOrNull(boardId) ?: throw TisException("게시글이 존재하지 않습니다.")
+        return boardRepository.findWithMemberAndReplyById(boardId) ?: throw TisException("게시글이 존재하지 않습니다.")
     }
 
     @Transactional
