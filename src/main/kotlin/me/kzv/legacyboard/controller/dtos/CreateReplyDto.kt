@@ -1,5 +1,7 @@
 package me.kzv.legacyboard.controller.dtos
 
+import jakarta.validation.constraints.NotBlank
+
 data class CreateReplyRequestDto(
-    val content: String
+    @field:NotBlank val content: String
 )
