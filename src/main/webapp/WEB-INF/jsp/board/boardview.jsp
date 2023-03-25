@@ -60,12 +60,10 @@
                                 <p style="margin: 0; font-size: 0.875rem;">${reply.member.nickname}</p>
                                 <c:set var="today" value="<%=new java.util.Date()%>"/>
                                 <fmt:formatDate var="now" type="date" value="${today}" pattern="yyyy-MM-dd"/>
-                                <fmt:parseDate value="${ reply.createdAt }" pattern="yyyy-MM-dd'T'HH:mm"
-                                               var="parsedDateTime" type="both"/>
+                                <fmt:parseDate value="${ reply.createdAt }" pattern="yyyy-MM-dd'T'HH:mm" var="parsedDateTime" type="both"/>
                                 <fmt:formatDate var="parsedDate" pattern="yyyy-MM-dd" value="${parsedDateTime}"/>
                                 <p style="margin: 0; font-size: 0.875rem;">
-                                    <c:if test="${now eq parsedDate}"><fmt:formatDate var="parsedDate" pattern="HH:mm"
-                                                                                      value="${parsedDateTime}"/></c:if>
+                                    <c:if test="${now eq parsedDate}"><fmt:formatDate var="parsedDate" pattern="HH:mm" value="${parsedDateTime}"/></c:if>
                                     <c:if test="${now ne parsedDate}">${parsedDate}</c:if>
                                 </p>
                             </div>
@@ -74,11 +72,10 @@
                                 <p class="m-0">${reply.content}</p>
                                 <sec:authorize access="isAuthenticated()">
                                     <sec:authentication property="principal.id" var="currentUserId"/>
-                                    <c:if test="${board.member.id == currentUserId}">
+                                    <c:if test="${reply.member.id == currentUserId}">
                                         <div class="d-flex">
-                                            <p class="m-0 px-1" style="font-size: 0.875rem; cursor: pointer;">수정</p>
-                                            <p class="m-0 px-1" style="font-size: 0.875rem; cursor: pointer;"
-                                               id="deleteReply">삭제</p>
+                                            <p class="m-0 px-1" style="font-size: 0.875rem; cursor: pointer;" data-id="${reply.id}" data-content="${reply.content}" data-bs-toggle="modal" data-bs-target="#editModal">수정</p>
+                                            <p class="m-0 px-1 deleteReply" style="font-size: 0.875rem; cursor: pointer;" data-id="${reply.id}">삭제</p>
                                         </div>
                                     </c:if>
                                 </sec:authorize>
@@ -93,9 +90,35 @@
 </c:if>
 <jsp:include page="../../layout/footer.jsp"></jsp:include>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/dayjs/1.11.7/dayjs.min.js"
-        integrity="sha512-hcV6DX35BKgiTiWYrJgPbu3FxS6CsCjKgmrsPRpUPkXWbvPiKxvSVSdhWX0yXcPctOI2FJ4WP6N1zH+17B/sAA=="
-        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+<!-- Modal -->
+<form id="editReply">
+    <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editModalLabel">Edit Reply</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label for="editContent" class="col-form-label">Message:</label>
+                        <textarea class="form-control" type="text" id="editContent" name="editContent"></textarea>
+                    </div>
+                    <input type="hidden" id="editReplyId" name="editReplyId">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary" data-bs-dismiss="modal">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/dayjs/1.11.7/dayjs.min.js" integrity="sha512-hcV6DX35BKgiTiWYrJgPbu3FxS6CsCjKgmrsPRpUPkXWbvPiKxvSVSdhWX0yXcPctOI2FJ4WP6N1zH+17B/sAA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script src="/resources/js/autotextarea.js"></script>
 <script src="/resources/js/api.js"></script>
 <script>
@@ -119,7 +142,6 @@
     }
 
     const reply = document.getElementById('reply')
-    const replyContent = document.getElementById('replyContent')
     const replyWrapper = {
         init: function () {
             new Autotextarea(reply)
@@ -133,9 +155,10 @@
                 alert("로그인이 필요합니다.")
                 </sec:authorize>
                 <sec:authorize access="isAuthenticated()">
-                const url = 'http://localhost:8080/api/v1/reply/create/${board.id}'
+                const url = 'http://localhost:8080/api/v1/reply/create'
                 const method = 'POST'
                 const body = {
+                    boardId: ${board.id},
                     content: reply.value
                 }
                 apiCall(url, method, body).then(res => this._html(res))
@@ -143,13 +166,54 @@
             })
         },
         edit: function () {
+            // https://getbootstrap.com/docs/5.0/components/modal/#methods
+            const editModal = document.getElementById('editModal')
+            editModal.addEventListener('show.bs.modal', function (event) {
+                const button = event.relatedTarget
+                const content = button.getAttribute('data-content')
+                const replyId = button.getAttribute('data-id')
+                const modalContent = document.getElementById('editContent')
+                const editReplyId = document.getElementById('editReplyId')
+                modalContent.value = content
+                editReplyId.value = replyId
+            })
 
+            const editReply = document.getElementById('editReply')
+            editReply.addEventListener('submit', e => {
+                e.preventDefault();
+                const url = 'http://localhost:8080/api/v1/reply/edit'
+                const method = 'POST'
+                const body = {
+                    replyId: e.target.editReplyId.value,
+                    boardId: ${board.id},
+                    content: e.target.editContent.value
+                }
+                apiCall(url, method, body).then(res => {
+                    this._html(res)
+                })
+            })
         },
         delete: function () {
-
+            const deleteReply = document.querySelectorAll('.deleteReply')
+            if(deleteReply.length > 0){
+                deleteReply.forEach(item => {
+                    item.addEventListener('click', (e) => {
+                        const url = 'http://localhost:8080/api/v1/reply/delete'
+                        const method = 'POST'
+                        const body = {
+                            replyId: e.target.dataset.id,
+                            boardId: ${board.id},
+                        }
+                        apiCall(url, method, body).then(res => {
+                            this._html(res);
+                            this.delete();
+                        })
+                    })
+                })
+            }
         },
         _html: function({ data }){
-            replyContent.innerHTML = data.map(item => ( this._component(item) )).join('')
+            document.getElementById('replyContent').innerHTML = data.map(item => ( this._component(item) )).join('')
         },
         _component: function (data) {
             let html = `
@@ -165,8 +229,8 @@
             `
             html += data.isReplyer ? `
                     <div class="d-flex">
-                        <p class="m-0 px-1" style="font-size: 0.875rem; cursor: pointer;" id="editReply" reply-id="` + data.id + `">수정</p>
-                        <p class="m-0 px-1" style="font-size: 0.875rem; cursor: pointer;" id="deleteReply" reply-id="` + data.id + `">삭제</p>
+                        <p class="m-0 px-1" style="font-size: 0.875rem; cursor: pointer;" data-bs-toggle="modal" data-bs-target="#editModal" data-id="` + data.replyId + `" data-content="` + data.content + `">수정</p>
+                        <p class="m-0 px-1 deleteReply" style="font-size: 0.875rem; cursor: pointer;" data-id="` + data.replyId + `">삭제</p>
                     </div>
             ` : ``
             html += `

@@ -1,9 +1,6 @@
 package me.kzv.legacyboard.controller
 
-import me.kzv.legacyboard.controller.dtos.CreateReplyRequestDto
-import me.kzv.legacyboard.controller.dtos.ReplyResponseDto
-import me.kzv.legacyboard.controller.dtos.ResponseDto
-import me.kzv.legacyboard.controller.dtos.toResponseDto
+import me.kzv.legacyboard.controller.dtos.*
 import me.kzv.legacyboard.entity.Member
 import me.kzv.legacyboard.entity.Reply
 import me.kzv.legacyboard.service.ReplyService
@@ -20,14 +17,35 @@ class ReplyController(
     private val replyService: ReplyService,
 ) {
     @ResponseBody
-    @PostMapping("/api/v1/reply/create/{boardId}")
+    @PostMapping("/api/v1/reply/create")
     fun createReply(
-        @PathVariable boardId: Long,
         @RequestBody dto: CreateReplyRequestDto,
         authentication: Authentication
     ): ResponseDto<List<ReplyResponseDto>> {
         val member = authentication.principal as Member
-        val replyList = replyService.create(dto.content, boardId, member).map { it.toResponseDto(member.id!!) }
+        val replyList = replyService.create(dto.content, dto.boardId, member).map { it.toResponseDto(member.id!!) }
+        return ResponseDto(data = replyList)
+    }
+
+    @ResponseBody
+    @PostMapping("/api/v1/reply/edit")
+    fun editReply(
+        @RequestBody dto: EditReplyRequestDto,
+        authentication: Authentication
+    ): ResponseDto<List<ReplyResponseDto>> {
+        val member = authentication.principal as Member
+        val replyList = replyService.edit(dto.content, replyId = dto.replyId, boardId = dto.boardId, ).map { it.toResponseDto(member.id!!) }
+        return ResponseDto(data = replyList)
+    }
+
+    @ResponseBody
+    @PostMapping("/api/v1/reply/delete")
+    fun deleteReply(
+        @RequestBody dto: DeleteReplyRequestDto,
+        authentication: Authentication
+    ): ResponseDto<List<ReplyResponseDto>> {
+        val member = authentication.principal as Member
+        val replyList = replyService.delete(dto.replyId, dto.boardId).map { it.toResponseDto(member.id!!) }
         return ResponseDto(data = replyList)
     }
 }
