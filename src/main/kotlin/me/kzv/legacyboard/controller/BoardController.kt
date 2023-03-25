@@ -4,7 +4,6 @@ import me.kzv.legacyboard.controller.dtos.*
 import me.kzv.legacyboard.entity.Member
 import me.kzv.legacyboard.exception.TisException
 import me.kzv.legacyboard.service.BoardService
-import org.springframework.http.ResponseEntity
 import org.springframework.security.core.Authentication
 import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
@@ -36,10 +35,10 @@ class BoardController(
 
     @ResponseBody
     @PostMapping("api/v1/board/write")
-    fun createBoard(@RequestBody dto: CreateBoardRequestDto, authentication: Authentication): ResponseEntity<Any> {
+    fun createBoard(@RequestBody dto: CreateBoardRequestDto, authentication: Authentication): ResponseDto<Any> {
         val member = authentication.principal as Member
         boardService.write(dto.toEntity(member))
-        return ResponseEntity.ok().build()
+        return ResponseDto()
     }
 
     @GetMapping("/board/edit/{id}")
@@ -57,21 +56,21 @@ class BoardController(
 
     @ResponseBody
     @PostMapping("api/v1/board/edit/{boardId}")
-    fun editBoard(@PathVariable boardId: Long, @RequestBody dto: EditBoardRequestDto, authentication: Authentication): ResponseEntity<Any> {
+    fun editBoard(@PathVariable boardId: Long, @RequestBody dto: EditBoardRequestDto, authentication: Authentication): ResponseDto<Any> {
         val member = authentication.principal as Member
         validateWriter(writerId = dto.memberId, authenticatedId = member.id!!)
         boardService.edit(boardId, title = dto.title, content = dto.content)
-        return ResponseEntity.ok().build()
+        return ResponseDto()
     }
 
 
     @ResponseBody
     @PostMapping("api/v1/board/delete")
-    fun deleteBoard(@RequestBody dto: DeleteBoardRequestDto, authentication: Authentication): ResponseEntity<Any> {
+    fun deleteBoard(@RequestBody dto: DeleteBoardRequestDto, authentication: Authentication): ResponseDto<Any> {
         val member = authentication.principal as Member
         validateWriter(writerId = dto.memberId, authenticatedId = member.id!!)
         boardService.delete(dto.boardId)
-        return ResponseEntity.ok().build()
+        return ResponseDto()
     }
 
     private fun validateWriter(writerId: Long, authenticatedId: Long) {
