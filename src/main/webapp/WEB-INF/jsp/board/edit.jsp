@@ -56,6 +56,7 @@
         integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa"
         crossorigin="anonymous"></script>
 
+<script src="/resources/js/api.js"></script>
 <script>
     $('#summernote').summernote({
         placeholder: '내용을 입력해주세요.',
@@ -65,12 +66,11 @@
     });
 
     document.getElementById('editBoard').addEventListener('click', () => {
-        const url = 'http://localhost:8080/api/v1/board/edit'
+        const url = 'http://localhost:8080/api/v1/board/edit/${board.id}'
         const method = 'POST'
         const body = {
             title: document.getElementById('title').value || '',
             content: $('#summernote').summernote('code') || '',
-            boardId: ${board.id},
             memberId: ${currentUserId}
         }
 
@@ -79,26 +79,7 @@
         } else if (body.content === '') {
             alert('본문을 입력해주세요.')
         } else {
-            apiCall(url, method, body)
+            apiCall(url, method, body, () => { window.location = '/board/view/${board.id}' })
         }
     })
-
-    async function apiCall(url, method, body) {
-        return fetch(url, {
-            method,
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify(body)
-        }).then(res => {
-            if (res.status === 200) {
-                window.location = '/board/view/${board.id}'
-                return res.json();
-            } else {
-                alert('요청이 실패하였습니다.')
-                return Promise.reject(res);
-            }
-        }).catch(err => {
-        })
-    }
 </script>

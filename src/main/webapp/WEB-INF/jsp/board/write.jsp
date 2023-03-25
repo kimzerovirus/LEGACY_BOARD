@@ -42,6 +42,7 @@
         integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa"
         crossorigin="anonymous"></script>
 
+<script src="/resources/js/api.js"></script>
 <script>
     $('#summernote').summernote({
         placeholder: '내용을 입력해주세요.',
@@ -66,23 +67,4 @@
             apiCall(url, method, body)
         }
     })
-
-    async function apiCall(url, method, body) {
-        return fetch(url, {
-            method,
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify(body)
-        }).then(res => {
-            if (res.status === 200) {
-                window.location = '/'
-                return res.json();
-            } else {
-                alert('요청이 실패하였습니다.')
-                return Promise.reject(res);
-            }
-        }).catch(err => {
-        })
-    }
 </script>

@@ -9,5 +9,4 @@ class LegacyBoardApplicationTests {
     @Test
     fun contextLoads() {
     }
-
 }

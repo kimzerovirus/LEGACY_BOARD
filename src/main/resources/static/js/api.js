@@ -16,7 +16,7 @@ function apiCall(url, method, body, callback) {
     }).catch(err => {})
 }
 
-function goMain(msg){
+function goMain(msg, location = '/'){
     alert(msg)
-    window.location = '/'
+    window.location = location
 }
