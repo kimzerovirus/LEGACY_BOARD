@@ -9,15 +9,19 @@ import org.springframework.security.crypto.password.PasswordEncoder
 
 @Entity
 class Member(
+    /** 이메일 */
     @Column(nullable = false)
     val email: String,
 
+    /** 닉네임 */
     @Column(nullable = false)
     val nickname: String,
 
+    /** 비밀번호 */
     @Column(nullable = false)
     var password: String,
 
+    /** 권한 */
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     var role: RoleType = RoleType.USER
