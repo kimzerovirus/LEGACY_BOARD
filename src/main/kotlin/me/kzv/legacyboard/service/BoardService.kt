@@ -15,8 +15,8 @@ class BoardService(
 ) {
 
     @Transactional
-    fun write(board: Board) {
-        boardRepository.save(board)
+    fun write(board: Board): Long {
+       return boardRepository.save(board).id!!
     }
 
     @Transactional(readOnly = true)

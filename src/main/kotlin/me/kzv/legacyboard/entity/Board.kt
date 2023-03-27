@@ -20,18 +20,12 @@ class Board(
     /** 글 내용 */
     @Column(nullable = false, columnDefinition = "TEXT")
     var content: String,
-
-    /** 이미지 */
-    @ElementCollection
-    @CollectionTable(name = "product_img", joinColumns = [JoinColumn(name = "product_id")])
-    var images: MutableList<String> = mutableListOf(),
 ) : BaseEntity() {
     var count: Int = 0
 
-    fun update(title: String, content: String, images: MutableList<String>) {
+    fun update(title: String, content: String) {
         this.title = title
         this.content = content
-        this.images = images
     }
 
     fun updateCount() {

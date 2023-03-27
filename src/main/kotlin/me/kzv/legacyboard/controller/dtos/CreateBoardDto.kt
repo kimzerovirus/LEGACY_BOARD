@@ -12,3 +12,7 @@ data class CreateBoardRequestDto(
 ){
     fun toEntity(member: Member) = Board(member, title = title, content = content)
 }
+
+data class CreateBoardResponseDto(
+    val id: Long
+)

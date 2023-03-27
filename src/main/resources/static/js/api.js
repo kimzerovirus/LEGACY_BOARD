@@ -1,9 +1,7 @@
-function apiCall(url, method, body, callback) {
+function apiCall(url, method, body) {
     return fetch(url, {
         method,
-        headers: {
-            "Content-Type": "application/json",
-        },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify(body)
     }).then(res => {
         if (res.status === 200) {
@@ -16,7 +14,3 @@ function apiCall(url, method, body, callback) {
     }).catch(err => {})
 }
 
-function goMain(msg, location = '/'){
-    alert(msg)
-    window.location = location
-}

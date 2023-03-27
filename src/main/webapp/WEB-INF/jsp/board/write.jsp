@@ -42,13 +42,38 @@
         integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa"
         crossorigin="anonymous"></script>
 
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
 <script src="/resources/js/api.js"></script>
 <script>
     $('#summernote').summernote({
         placeholder: '내용을 입력해주세요.',
+        toolbar: [
+            ['style', ['bold', 'italic', 'underline', 'clear']],
+            ['font', ['strikethrough', 'superscript', 'subscript']],
+            ['fontsize', ['fontsize']],
+            ['color', ['color']],
+            ['para', ['ul', 'ol', 'paragraph']],
+            ['height', ['height']]
+        ],
         tabsize: 2,
         height: 400,
         lang: 'ko-KR',
+        callbacks: {
+            onImageUpload: function(files) {
+                console.log(files[0])
+                const url = 'http://localhost:8080/api/v1/file/upload'
+                const formData = new FormData();
+                formData.append("file", files[0]);
+
+                axios.post(url, formData)
+                    .then(({data}) => {
+                        const url = data.data.url
+                        const imgurl = $('<img>').attr({ 'src': url });
+                        $('#summernote').summernote('insertNode', imgurl[0]);
+                    })
+            }
+        }
     });
 
     document.getElementById('createBoard').addEventListener('click', () => {
@@ -64,7 +89,7 @@
         } else if (body.content === '') {
             alert('본문을 입력해주세요.')
         } else {
-            apiCall(url, method, body)
+            apiCall(url, method, body).then(({data}) => { window.location = '/board/view/' + data.id })
         }
     })
 </script>

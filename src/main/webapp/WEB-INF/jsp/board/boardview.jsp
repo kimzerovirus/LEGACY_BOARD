@@ -136,8 +136,9 @@
                 boardId: ${board.id},
                 memberId: ${board.member.id}
             }
-            const msg = '삭제완료!!'
-            apiCall(url, method, body, goMain(msg))
+            apiCall(url, method, body).then(() => {
+                window.location.href = '/'
+            })
         })
     }
 
