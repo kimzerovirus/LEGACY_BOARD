@@ -162,7 +162,12 @@
                     boardId: ${board.id},
                     content: reply.value
                 }
-                apiCall(url, method, body).then(res => this._html(res))
+                apiCall(url, method, body).then(res => {
+                    this._html(res)
+                    this.edit();
+                    this.delete();
+                    reply.value = ""
+                })
                 </sec:authorize>
             })
         },
@@ -190,7 +195,10 @@
                     content: e.target.editContent.value
                 }
                 apiCall(url, method, body).then(res => {
+
                     this._html(res)
+                    this.edit();
+                    this.delete();
                 })
             })
         },
@@ -205,8 +213,10 @@
                             replyId: e.target.dataset.id,
                             boardId: ${board.id},
                         }
+                        console.log(body)
                         apiCall(url, method, body).then(res => {
                             this._html(res);
+                            this.edit();
                             this.delete();
                         })
                     })
@@ -214,6 +224,7 @@
             }
         },
         _html: function({ data }){
+            console.log(data)
             document.getElementById('replyContent').innerHTML = data.map(item => ( this._component(item) )).join('')
         },
         _component: function (data) {

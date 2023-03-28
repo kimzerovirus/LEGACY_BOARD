@@ -48,29 +48,43 @@
     <div class="d-flex justify-content-center mt-3">
         <ul class="pagination pagination-sm">
             <li class="page-item <c:if test="${!boardList.checkPrev}">disabled</c:if>">
-                <a class="page-link" href="${boardList.pageList[0] - 1}">&laquo;</a>
+                <a class="page-link" href="${boardList.pageList[0] - 1}<c:if test="${param.type ne null}">&type=${param.type}</c:if><c:if test="${param.keyword ne null}">&keyword=${param.keyword}</c:if>">&laquo;</a>
             </li>
             <c:forEach var="page" items="${boardList.pageList}">
                 <li class="page-item <c:if test="${page eq boardList.cpage}">active</c:if>">
-                    <a class="page-link" href="?page=${page}">${page}</a>
+                    <a class="page-link" href="?page=${page}<c:if test="${param.type ne null}">&type=${param.type}</c:if><c:if test="${param.keyword ne null}">&keyword=${param.keyword}</c:if>">${page}</a>
                 </li>
             </c:forEach>
             <li class="page-item <c:if test="${!boardList.checkNext}">disabled</c:if>">
-                <a class="page-link" href="?page=${boardList.pageList[9] + 1}">&raquo;</a>
+                <a class="page-link" href="?page=${boardList.pageList[9] + 1}<c:if test="${param.type ne null}">&type=${param.type}</c:if><c:if test="${param.keyword ne null}">&keyword=${param.keyword}</c:if>">&raquo;</a>
             </li>
         </ul>
     </div>
 </c:if>
 
-<c:if test="${empty boardList.content}">
-    <div class="d-flex justify-content-center h-75 mt-3 align-items-center">
-        <div class="d-flex flex-column justify-content-center">
-            <h3 class="text-center">게시글이 존재하지 않습니다.</h3>
-            <a href="/board/write" class="card-link text-center">첫번째 게시글을 올려주세요.</a>
-        </div>
-    </div>
-</c:if>
+<%--<%=request.getParameter("type") %>--%>
+<%--<%=request.getParameter("keyword") %>--%>
 
+<c:if test="${param.keyword ne null}">
+    <c:if test="${empty boardList.content}">
+        <div class="d-flex justify-content-center h-75 mt-3 align-items-center">
+            <div class="d-flex flex-column justify-content-center">
+                <h3 class="text-center">"<span class="text-danger">${param.keyword}</span>"에<br/>대한 검색결과가 없습니다.</h3>
+                <a href="/" class="card-link text-center">홈으로 되돌아가기</a>
+            </div>
+        </div>
+    </c:if>
+</c:if>
+<c:if test="${param.keyword eq null}">
+    <c:if test="${empty boardList.content}">
+        <div class="d-flex justify-content-center h-75 mt-3 align-items-center">
+            <div class="d-flex flex-column justify-content-center">
+                <h3 class="text-center">게시글이 존재하지 않습니다.</h3>
+                <a href="/board/write" class="card-link text-center">첫번째 게시글을 올려주세요.</a>
+            </div>
+        </div>
+    </c:if>
+</c:if>
 
 <jsp:include page="../layout/footer.jsp"></jsp:include>
 

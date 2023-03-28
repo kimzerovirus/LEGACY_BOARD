@@ -37,7 +37,7 @@ class BoardController(
 
     @ResponseBody
     @PostMapping("api/v1/board/write")
-    fun createBoard(@RequestBody dto: CreateBoardRequestDto, authentication: Authentication): ResponseDto<Any> {
+    fun createBoard(@RequestBody dto: CreateBoardRequestDto, authentication: Authentication): ResponseDto<CreateBoardResponseDto> {
         val member = authentication.principal as Member
         val id = boardService.write(dto.toEntity(member))
         return ResponseDto(data = CreateBoardResponseDto(id))

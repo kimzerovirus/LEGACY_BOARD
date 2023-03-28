@@ -24,6 +24,7 @@ class BoardCustomRepositoryImpl(
             .where(condition)
             .offset(pageable.offset)
             .limit(pageable.pageSize.toLong())
+            .orderBy(board.id.desc())
             .fetch()
 
         val countQuery = queryFactory

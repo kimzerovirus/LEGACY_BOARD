@@ -48,14 +48,6 @@
 <script>
     $('#summernote').summernote({
         placeholder: '내용을 입력해주세요.',
-        toolbar: [
-            ['style', ['bold', 'italic', 'underline', 'clear']],
-            ['font', ['strikethrough', 'superscript', 'subscript']],
-            ['fontsize', ['fontsize']],
-            ['color', ['color']],
-            ['para', ['ul', 'ol', 'paragraph']],
-            ['height', ['height']]
-        ],
         tabsize: 2,
         height: 400,
         lang: 'ko-KR',
