@@ -31,7 +31,7 @@ class SecurityConfig(
             .authorizeHttpRequests { authorize ->
                 authorize
                     .shouldFilterAllDispatcherTypes(false)
-                    .requestMatchers("/", "/signin", "/signup", "/board/view/**").permitAll()
+                    .requestMatchers("/", "/signin", "/signup", "/search/**", "/board/view/**").permitAll()
                     .requestMatchers(PathRequest.toH2Console()).permitAll()
                     .requestMatchers("/board/write", "/board/edit/**", "/api/v1/**", "/mypage").hasAnyRole(RoleType.USER.toString(), RoleType.ADMIN.toString())
                     .anyRequest().permitAll()

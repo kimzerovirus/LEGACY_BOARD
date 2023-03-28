@@ -8,10 +8,8 @@ import me.kzv.legacyboard.repository.MemberRepository
 import org.springframework.boot.CommandLineRunner
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
-import org.springframework.data.jpa.repository.config.EnableJpaAuditing
 import org.springframework.security.crypto.password.PasswordEncoder
 
-@EnableJpaAuditing
 @SpringBootApplication
 class LegacyBoardApplication(
     private val memberRepository: MemberRepository,

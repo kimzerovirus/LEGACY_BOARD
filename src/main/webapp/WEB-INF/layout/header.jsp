@@ -65,11 +65,18 @@
                     </sec:authorize>
                 </ul>
                 <form class="d-flex" style="margin:0 !important">
-                    <input class="form-control me-2" type="text" placeholder="Search">
-                    <button class="btn btn-primary" type="button">Search</button>
+                    <select class="form-select" style="width: 90px;" name="type">
+                        <option value="all">전체</option>
+                        <option value="title">제목</option>
+                        <option value="content">내용</option>
+                        <option value="nickname">닉네임</option>
+                    </select>
+                    <input class="form-control me-2" type="text" placeholder="Search" name="keyword">
+                    <button class="btn btn-primary" type="submit">Search</button>
                 </form>
             </div>
         </div>
     </nav>
 
     <div class="content container">
+

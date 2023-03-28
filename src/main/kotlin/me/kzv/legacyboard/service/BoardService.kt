@@ -1,6 +1,7 @@
 package me.kzv.legacyboard.service
 
 import me.kzv.legacyboard.entity.Board
+import me.kzv.legacyboard.entity.SearchType
 import me.kzv.legacyboard.exception.TisException
 import me.kzv.legacyboard.repository.BoardRepository
 import org.springframework.data.domain.Page
@@ -32,8 +33,8 @@ class BoardService(
     }
 
     @Transactional(readOnly = true)
-    fun getList(pageable: Pageable): Page<Board> {
-        return boardRepository.findAll(pageable)
+    fun getList(searchType: SearchType, keyword: String, pageable: Pageable): Page<Board> {
+        return boardRepository.search(searchType, keyword, pageable)
     }
 
     @Transactional

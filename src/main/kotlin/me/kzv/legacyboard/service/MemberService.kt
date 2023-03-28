@@ -11,6 +11,7 @@ class MemberService(
 ) {
     @Transactional
     fun createMember(member: Member) {
+        // TODO 중복 회원검사
         memberRepository.save(member)
     }
 

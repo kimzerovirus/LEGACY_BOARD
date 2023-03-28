@@ -2,6 +2,7 @@ package me.kzv.legacyboard.controller
 
 import me.kzv.legacyboard.controller.dtos.*
 import me.kzv.legacyboard.entity.Member
+import me.kzv.legacyboard.entity.SearchType
 import me.kzv.legacyboard.exception.TisException
 import me.kzv.legacyboard.service.BoardService
 import org.springframework.security.core.Authentication
@@ -14,10 +15,11 @@ import org.springframework.web.bind.annotation.*
 class BoardController(
     private val boardService: BoardService
 ) {
-
     @GetMapping("/", "")
-    fun home(model: Model, @RequestParam page: Int?): String {
-        val boardList = boardService.getList(PageRequestDto(page))
+    fun home(model: Model, @RequestParam type: String?,
+             @RequestParam keyword: String?, @RequestParam page: Int?
+    ): String {
+        val boardList = boardService.getList(SearchType.of(type), keyword ?: "", PageRequestDto(page))
         model.addAttribute("boardList", PageResponseDto(boardList))
         return "index"
     }
