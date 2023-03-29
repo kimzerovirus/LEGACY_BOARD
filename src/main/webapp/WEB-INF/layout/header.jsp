@@ -64,7 +64,7 @@
                         </li>
                     </sec:authorize>
                 </ul>
-                <form class="d-flex" style="margin:0 !important">
+                <form class="d-flex" style="margin:0 !important" action="/" method="GET">
                     <select class="form-select" style="width: 90px;" name="type">
                         <option value="all" <c:if test="${param.type eq 'all'}">selected</c:if>>전체</option>
                         <option value="title" <c:if test="${param.type eq 'title'}">selected</c:if>>제목</option>

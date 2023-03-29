@@ -4,13 +4,33 @@
 
 <title>KIMZEROVIRUS | HOME</title>
 
+<script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+
 <jsp:include page="../layout/header.jsp"></jsp:include>
 
-<div class="card">
+<div class="card position-relative overflow-hidden">
     <div class="card-body">
         <h4 class="card-title">커뮤니티</h4>
         <a href="/board/write" class="card-link">글쓰기</a>
     </div>
+
+    <c:set var="ran"><%= java.lang.Math.round(java.lang.Math.random() * 4 + 1) %></c:set>
+    <c:if test="${ran == 1}">
+        <lottie-player class="position-absolute" src="https://assets3.lottiefiles.com/packages/lf20_d7SbS5.json"  background="transparent"  speed="1" style="width: 100px; height: 100px; bottom: -30px; right: 20px; transform: scaleX(-1)"  loop autoplay></lottie-player>
+    </c:if>
+    <c:if test="${ran == 2}">
+        <lottie-player class="position-absolute" src="https://assets2.lottiefiles.com/packages/lf20_x1loSU.json"  background="transparent"  speed="1" style="width: 100px; height: 100px; bottom: -30px; right: 20px; transform: scaleX(-1)"  loop autoplay></lottie-player>
+    </c:if>
+    <c:if test="${ran == 3}">
+        <lottie-player class="position-absolute" src="https://assets2.lottiefiles.com/packages/lf20_NiUhhS.json"  background="transparent"  speed="0.6" style="width: 80px; height: 80px; bottom: -15px; right: 20px; transform: scaleX(-1)"  loop autoplay></lottie-player>
+    </c:if>
+    <c:if test="${ran == 4}">
+        <lottie-player class="position-absolute" src="https://assets8.lottiefiles.com/packages/lf20_mladlvha.json"  background="transparent"  speed="1" style="width: 100px; height: 100px; bottom: -30px; right: 10px; transform: scaleX(-1)"  loop autoplay></lottie-player>
+    </c:if>
+    <c:if test="${ran == 5}">
+        <lottie-player class="position-absolute" src="https://assets4.lottiefiles.com/packages/lf20_iYvSqSMKZB.json"  background="transparent"  speed="1" style="width: 80px; height: 80px; bottom: -5px; right: 20px; transform: scaleX(-1)"  loop autoplay></lottie-player>
+    </c:if>
+
 </div>
 
 <c:if test="${!empty boardList.content}">

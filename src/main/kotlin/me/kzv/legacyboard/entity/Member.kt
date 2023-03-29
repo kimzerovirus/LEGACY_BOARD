@@ -10,11 +10,11 @@ import org.springframework.security.crypto.password.PasswordEncoder
 @Entity
 class Member(
     /** 이메일 */
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     val email: String,
 
     /** 닉네임 */
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     val nickname: String,
 
     /** 비밀번호 */

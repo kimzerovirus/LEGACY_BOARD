@@ -3,6 +3,7 @@ package me.kzv.legacyboard.controller
 import jakarta.validation.Valid
 import me.kzv.legacyboard.controller.dtos.SignupRequestDto
 import me.kzv.legacyboard.controller.validators.SignupRequestValidator
+import me.kzv.legacyboard.exception.TisException
 import me.kzv.legacyboard.service.MemberService
 import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.stereotype.Controller
@@ -40,7 +41,12 @@ class MemberController (
             model.addAttribute("nickname", dto.nickname)
             return "member/signup"
         }
-        memberService.createMember(dto.toEntity(passwordEncoder))
+        try {
+            memberService.createMember(dto.toEntity(passwordEncoder))
+        } catch (e: TisException) {
+            model.addAttribute(e.slug!!, e.message)
+            return "member/signup"
+        }
         return "redirect:/"
     }
 
