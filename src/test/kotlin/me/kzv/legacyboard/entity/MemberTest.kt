@@ -1,6 +1,6 @@
 package me.kzv.legacyboard.entity
 
-import org.junit.jupiter.api.Assertions.*
+import me.kzv.legacyboard.member.Member
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 
 class MemberTest{

@@ -1,10 +1,13 @@
 package me.kzv.legacyboard.repository
 
 import jakarta.persistence.EntityNotFoundException
-import me.kzv.legacyboard.entity.SearchType
+import me.kzv.legacyboard.board.SearchType
 import me.kzv.legacyboard.entity.createBoard
 import me.kzv.legacyboard.entity.createMember
 import me.kzv.legacyboard.entity.createReply
+import me.kzv.legacyboard.board.BoardRepository
+import me.kzv.legacyboard.member.MemberRepository
+import me.kzv.legacyboard.reply.ReplyRepository
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.params.ParameterizedTest

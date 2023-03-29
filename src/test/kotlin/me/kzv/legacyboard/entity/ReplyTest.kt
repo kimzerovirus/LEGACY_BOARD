@@ -1,6 +1,8 @@
 package me.kzv.legacyboard.entity
 
-import org.junit.jupiter.api.Assertions.*
+import me.kzv.legacyboard.board.Board
+import me.kzv.legacyboard.member.Member
+import me.kzv.legacyboard.reply.Reply
 
 class ReplyTest {
 
@@ -10,6 +12,6 @@ fun createReply(
     member: Member,
     board: Board,
     content: String = "reply"
-): Reply{
+): Reply {
     return Reply(member, board, content)
 }

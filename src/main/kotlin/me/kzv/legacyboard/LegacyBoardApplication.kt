@@ -1,10 +1,10 @@
 package me.kzv.legacyboard
 
-import me.kzv.legacyboard.entity.Board
-import me.kzv.legacyboard.entity.Member
-import me.kzv.legacyboard.entity.enums.RoleType
-import me.kzv.legacyboard.repository.BoardRepository
-import me.kzv.legacyboard.repository.MemberRepository
+import me.kzv.legacyboard.board.Board
+import me.kzv.legacyboard.member.Member
+import me.kzv.legacyboard.member.RoleType
+import me.kzv.legacyboard.board.BoardRepository
+import me.kzv.legacyboard.member.MemberRepository
 import org.springframework.boot.CommandLineRunner
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication

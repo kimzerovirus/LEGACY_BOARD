@@ -1,6 +1,7 @@
 package me.kzv.legacyboard.repository
 
-import me.kzv.legacyboard.entity.MyBatisUser
+import me.kzv.legacyboard.infra.test.MyBatisUser
+import me.kzv.legacyboard.infra.test.MyBatisUserRepository
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
