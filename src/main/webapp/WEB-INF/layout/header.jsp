@@ -43,7 +43,7 @@
 <body>
 <div class="wrapper">
     <nav class="navbar navbar-expand-sm navbar-dark bg-dark mb-3 p-3">
-        <div class="container-fluid">
+        <div class="container">
             <a class="navbar-brand" href="/">Home</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mynavbar">
                 <span class="navbar-toggler-icon"></span>
@@ -78,4 +78,4 @@
         </div>
     </nav>
 
-    <div class="content container">
+    <div class="content container" style="max-width: 840px;">
