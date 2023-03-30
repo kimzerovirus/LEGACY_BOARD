@@ -9,3 +9,6 @@ spring:
       ddl-auto: ${db.ddl:create-drop}
     show-sql: true
 
+  profiles:
+    include: local
+#uploadPath: /users/zerovirus/desktop/code/legacy-board/src/main/resources/static/img/

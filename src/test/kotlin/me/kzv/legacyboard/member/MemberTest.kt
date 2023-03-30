@@ -1,4 +1,4 @@
-package me.kzv.legacyboard.entity
+package me.kzv.legacyboard.member
 
 import me.kzv.legacyboard.member.Member
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder

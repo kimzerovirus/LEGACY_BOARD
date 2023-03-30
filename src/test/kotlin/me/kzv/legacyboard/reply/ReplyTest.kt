@@ -1,4 +1,4 @@
-package me.kzv.legacyboard.entity
+package me.kzv.legacyboard.reply
 
 import me.kzv.legacyboard.board.Board
 import me.kzv.legacyboard.member.Member

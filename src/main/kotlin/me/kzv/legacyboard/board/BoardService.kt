@@ -44,4 +44,8 @@ class BoardService(
     fun delete(boardId: Long) {
         boardRepository.deleteById(boardId)
     }
+
+    private fun extractImg(content: String) {
+
+    }
 }

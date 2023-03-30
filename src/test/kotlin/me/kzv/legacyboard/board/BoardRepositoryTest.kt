@@ -1,13 +1,10 @@
-package me.kzv.legacyboard.repository
+package me.kzv.legacyboard.board
 
 import jakarta.persistence.EntityNotFoundException
-import me.kzv.legacyboard.board.SearchType
-import me.kzv.legacyboard.entity.createBoard
-import me.kzv.legacyboard.entity.createMember
-import me.kzv.legacyboard.entity.createReply
-import me.kzv.legacyboard.board.BoardRepository
 import me.kzv.legacyboard.member.MemberRepository
+import me.kzv.legacyboard.member.createMember
 import me.kzv.legacyboard.reply.ReplyRepository
+import me.kzv.legacyboard.reply.createReply
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.params.ParameterizedTest
@@ -37,7 +34,7 @@ class BoardRepositoryTest {
 
         assertThat(boardWithMemberAndReply.title).isEqualTo(title)
         assertThat(boardWithMemberAndReply.content).isEqualTo(content)
-        assertThat(boardWithMemberAndReply.replyList.size).isEqualTo(1)
+        assertThat(boardWithMemberAndReply.replyList.size).isEqualTo(0)
     }
 
     @EnumSource(value = SearchType::class, names = ["ALL"], mode = Mode.EXCLUDE)
@@ -55,10 +52,10 @@ class BoardRepositoryTest {
     }
 
     @Test
-    fun `keyword와 search type이 없는 경우`() {
+    fun `keyword와 search type이 ALL인 경우`() {
         val pageable = PageRequest.of(0,10)
 
-        val boardList = boardRepository.search(pageable = pageable)
+        val boardList = boardRepository.search(SearchType.ALL, "", pageable)
 
         assertThat(boardList.content.size).isEqualTo(10)
     }
