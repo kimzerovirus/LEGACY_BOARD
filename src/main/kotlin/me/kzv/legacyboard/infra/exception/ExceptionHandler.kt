@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.ControllerAdvice
 import org.springframework.web.bind.annotation.ExceptionHandler
 import org.springframework.web.bind.annotation.ResponseStatus
 import org.springframework.web.servlet.NoHandlerFoundException
+import java.lang.IllegalStateException
 
 @ControllerAdvice
 class ExceptionHandler {
@@ -16,7 +17,7 @@ class ExceptionHandler {
         return "error/notfound"
     }
 
-    @ExceptionHandler(TisException::class)
+    @ExceptionHandler(TisException::class, IllegalStateException::class)
     fun tisExceptionHandler(e: Exception, model: Model): String {
         model.addAttribute("error", e.message)
         return "error/error"

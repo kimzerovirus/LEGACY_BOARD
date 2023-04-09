@@ -16,7 +16,7 @@ class PageRequestDto(
 class PageResponseDto(page: Page<*>) {
     val content: List<*> = page.content
     val totalPage = page.totalPages
-
+    val count = page.totalElements
     var pageList = mutableListOf<Int>()
     var cpage: Int = 0 // 현재 페이지
     var checkPrev: Boolean = false // 이전, 다음 페이지 유무

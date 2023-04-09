@@ -6,6 +6,7 @@ import org.springframework.data.domain.Pageable
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
+import java.util.regex.Pattern
 
 @Service
 class BoardService(
@@ -45,7 +46,13 @@ class BoardService(
         boardRepository.deleteById(boardId)
     }
 
-    private fun extractImg(content: String) {
-
+    private fun extractImgAndCreateImgList(content: String): MutableList<String> {
+        val imgList = mutableListOf<String>()
+        val pattern = Pattern.compile("<img[^>]*src=[\"']?([^>\"']+)[\"']?[^>]*>")
+        val matcher = pattern.matcher(content)
+        while (matcher.find()){
+            imgList.add(matcher.group(1))
+        }
+        return imgList
     }
 }

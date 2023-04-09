@@ -1,0 +1,11 @@
+name: CI-CD
+
+on:
+  push:
+    branches:
+      -main
+
+env:
+  S3_BUCKET_NAME:
+  CODE_DEPLOY_APPLICATION_NAME:
+  CODE_DEPLOY_DEPLOYMENT:

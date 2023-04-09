@@ -34,9 +34,10 @@
 </div>
 
 <c:if test="${!empty boardList.content}">
+
     <table class="table mt-3">
         <thead>
-        <th></th>
+        <th>개수 ${boardList.count}</th>
         </thead>
         <tbody>
         <c:forEach var="board" items="${boardList.content}">
