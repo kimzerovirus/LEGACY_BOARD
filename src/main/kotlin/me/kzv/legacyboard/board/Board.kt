@@ -23,12 +23,22 @@ class Board(
     /** 글 내용 */
     @Column(nullable = false, columnDefinition = "TEXT")
     var content: String,
+
+    /** 이미지 */
+    @ElementCollection
+    @CollectionTable(name = "board_img", joinColumns = [JoinColumn(name = "board_id")])
+    var images: MutableList<String> = mutableListOf(),
 ) : BaseEntity() {
+    /** 조회수 */
     var count: Int = 0
 
     fun update(title: String, content: String) {
         this.title = title
         this.content = content
+    }
+
+    fun updateImages(images: MutableList<String>) {
+        this.images = images
     }
 
     fun updateCount() {

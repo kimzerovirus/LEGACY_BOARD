@@ -20,8 +20,9 @@ class BoardController(
     private val boardService: BoardService
 ) {
     @GetMapping("/", "")
-    fun home(model: Model, @RequestParam type: String?,
-             @RequestParam keyword: String?, @RequestParam page: Int?
+    fun home(
+        model: Model, @RequestParam type: String?,
+        @RequestParam keyword: String?, @RequestParam page: Int?
     ): String {
         val boardList = boardService.getList(SearchType.of(type), keyword ?: "", PageRequestDto(page))
         model.addAttribute("boardList", PageResponseDto(boardList))
@@ -41,7 +42,10 @@ class BoardController(
 
     @ResponseBody
     @PostMapping("api/v1/board/write")
-    fun createBoard(@RequestBody dto: CreateBoardRequestDto, authentication: Authentication): ResponseDto<CreateBoardResponseDto> {
+    fun createBoard(
+        @RequestBody dto: CreateBoardRequestDto,
+        authentication: Authentication
+    ): ResponseDto<CreateBoardResponseDto> {
         val member = authentication.principal as Member
         val id = boardService.write(dto.toEntity(member))
         return ResponseDto(data = CreateBoardResponseDto(id))
@@ -62,7 +66,11 @@ class BoardController(
 
     @ResponseBody
     @PostMapping("api/v1/board/edit/{boardId}")
-    fun editBoard(@PathVariable boardId: Long, @RequestBody dto: EditBoardRequestDto, authentication: Authentication): ResponseDto<Any> {
+    fun editBoard(
+        @PathVariable boardId: Long,
+        @RequestBody dto: EditBoardRequestDto,
+        authentication: Authentication
+    ): ResponseDto<Any> {
         val member = authentication.principal as Member
         validateWriter(writerId = dto.memberId, authenticatedId = member.id!!)
         boardService.edit(boardId, title = dto.title, content = dto.content)
@@ -80,6 +88,6 @@ class BoardController(
     }
 
     private fun validateWriter(writerId: Long, authenticatedId: Long) {
-        if (writerId != authenticatedId) throw TisException("로그인한 회원과 글 작성자가 다름!!!")
+        check(writerId != authenticatedId) { "유효하지 않은 접근입니다." }
     }
 }

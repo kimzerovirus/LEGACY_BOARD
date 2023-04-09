@@ -13,6 +13,6 @@ class WebConfig : WebMvcConfigurer {
     override fun addResourceHandlers(registry: ResourceHandlerRegistry) {
         // 정적자원 매핑
         registry.addResourceHandler("/resources/**").addResourceLocations("classpath:/static/")
-        registry.addResourceHandler("/images/**").addResourceLocations("file://$uploadPath");
+        registry.addResourceHandler("/images/**").addResourceLocations("file://$uploadPath")
     }
 }
