@@ -60,3 +60,10 @@ tasks.withType<Test> {
     useJUnitPlatform()
 }
 
+/*
+  -plain.jar 는 jar 와 다르게 dependencies 를 제외한 classes 와 resources 만을 가지고 있음
+  따라서 java -jar 로 실행할 수 없음
+ */
+tasks.named<Jar>("jar") { // plain-jar 생성 안하기
+    enabled = false
+}

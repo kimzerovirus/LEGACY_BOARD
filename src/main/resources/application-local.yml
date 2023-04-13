@@ -1,1 +1,8 @@
+spring:
+  h2:
+    console:
+      enabled: true
+  jpa:
+    show-sql: true
+
 uploadPath: /users/zerovirus/desktop/code/legacy-board/src/main/resources/static/img/

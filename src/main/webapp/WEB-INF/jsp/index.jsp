@@ -36,9 +36,13 @@
 <c:if test="${!empty boardList.content}">
 
     <table class="table mt-3">
+    <c:if test="${param.keyword ne null}">
+        <c:if test="${boardList.count > 0}">
         <thead>
-        <th>개수 ${boardList.count}</th>
+        <th>검색 결과 (${boardList.count})</th>
         </thead>
+        </c:if>
+    </c:if>
         <tbody>
         <c:forEach var="board" items="${boardList.content}">
             <tr>
@@ -90,7 +94,7 @@
     <c:if test="${empty boardList.content}">
         <div class="d-flex justify-content-center h-75 mt-3 align-items-center">
             <div class="d-flex flex-column justify-content-center">
-                <h3 class="text-center">"<span class="text-danger">${param.keyword}</span>"에<br/>대한 검색결과가 없습니다.</h3>
+                <h3 class="text-center">"<span class="text-danger">${param.keyword}</span>"에<br/>대한 검색 결과가 없습니다.</h3>
                 <a href="/" class="card-link text-center">홈으로 되돌아가기</a>
             </div>
         </div>
