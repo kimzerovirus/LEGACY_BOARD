@@ -6,3 +6,4 @@ spring:
     show-sql: true
 
 uploadPath: /users/zerovirus/desktop/code/legacy-board/src/main/resources/static/img/
+imgPath: /users/zerovirus/desktop/code/legacy-board/src/main/resources/static/img/

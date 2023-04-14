@@ -7,12 +7,12 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer
 
 @Configuration
 class WebConfig : WebMvcConfigurer {
-    @Value("\${uploadPath}")
-    lateinit var uploadPath: String
+    @Value("\${imgPath}")
+    lateinit var imgPath: String
 
     override fun addResourceHandlers(registry: ResourceHandlerRegistry) {
         // 정적자원 매핑
         registry.addResourceHandler("/resources/**").addResourceLocations("classpath:/static/")
-        registry.addResourceHandler("/images/**").addResourceLocations("file://$uploadPath")
+        registry.addResourceHandler("/images/**").addResourceLocations("file://$imgPath")
     }
 }

@@ -38,8 +38,11 @@ dependencies {
     // https://mvnrepository.com/artifact/javax.servlet.jsp.jstl/jstl-api
 //    implementation("javax.servlet.jsp.jstl:jstl-api:1.2") // <- taglib 가 없는듯?
 //    implementation("javax.servlet:jstl:1.2") // 스프링 버전이 높아서 jakarta 머시기 에러남
+
     implementation("org.glassfish.web:jakarta.servlet.jsp.jstl:2.0.0") // tomcat 9.0++ 버전부터는 요거 써야되는듯 - https://stackoverflow.com/questions/64597921/jakarta-servlet-servletexception-java-lang-noclassdeffounderror-javax-servlet
     implementation("org.apache.tomcat.embed:tomcat-embed-jasper") // 스프링 부트 내장 톰캣 사용
+    // https://stackoverflow.com/questions/74913190/spring-boot-apps-jar-not-working-issue-with-tomcat-embed-jasper
+    // 스프링 높은 버전에서 embedded tomcat jar 실행시 이슈 있음
     implementation("org.springframework.security:spring-security-taglibs") // jsp spring security library
 
     // Querydsl 추가
