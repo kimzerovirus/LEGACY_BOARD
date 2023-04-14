@@ -1,6 +1,7 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
+    war
     id("org.springframework.boot") version "3.0.4"
     id("io.spring.dependency-management") version "1.1.0"
     kotlin("jvm") version "1.7.22"
@@ -33,6 +34,8 @@ dependencies {
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testImplementation("org.springframework.batch:spring-batch-test")
     testImplementation("org.springframework.security:spring-security-test")
+
+    providedRuntime("org.springframework.boot:spring-boot-starter-tomcat")
 
     // jsp
     // https://mvnrepository.com/artifact/javax.servlet.jsp.jstl/jstl-api
@@ -70,3 +73,8 @@ tasks.withType<Test> {
 tasks.named<Jar>("jar") { // plain-jar 생성 안하기
     enabled = false
 }
+tasks.named<War>("war") { // plain-war 생성 안하기
+    enabled = false
+}
+
+// jsp jar 파일로 실행시 view 를 지원하지 않음 -> war 파일로 실행시키면 됨
