@@ -1,9 +1,10 @@
 package me.kzv.legacyboard.reply
 
 import me.kzv.legacyboard.infra.common.dto.ResponseDto
+import me.kzv.legacyboard.infra.utils.validateWriter
+import me.kzv.legacyboard.member.CurrentMember
 import me.kzv.legacyboard.member.Member
 import me.kzv.legacyboard.reply.dto.*
-import org.springframework.security.core.Authentication
 import org.springframework.stereotype.Controller
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
@@ -17,9 +18,8 @@ class ReplyController(
     @PostMapping("/api/v1/reply/create")
     fun createReply(
         @RequestBody dto: CreateReplyRequestDto,
-        authentication: Authentication
+        @CurrentMember member: Member
     ): ResponseDto<List<ReplyResponseDto>> {
-        val member = authentication.principal as Member
         val replyList = replyService.create(dto.content, dto.boardId, member).map { it.toResponseDto(member.id!!) }
         return ResponseDto(data = replyList)
     }
@@ -28,9 +28,9 @@ class ReplyController(
     @PostMapping("/api/v1/reply/edit")
     fun editReply(
         @RequestBody dto: EditReplyRequestDto,
-        authentication: Authentication
+        @CurrentMember member: Member
     ): ResponseDto<List<ReplyResponseDto>> {
-        val member = authentication.principal as Member
+        validateWriter(writerId = dto.replyId, authenticatedId = member.id!!)
         val replyList = replyService.edit(dto.content, replyId = dto.replyId, boardId = dto.boardId, ).map { it.toResponseDto(member.id!!) }
         return ResponseDto(data = replyList)
     }
@@ -39,9 +39,9 @@ class ReplyController(
     @PostMapping("/api/v1/reply/delete")
     fun deleteReply(
         @RequestBody dto: DeleteReplyRequestDto,
-        authentication: Authentication
+        @CurrentMember member: Member
     ): ResponseDto<List<ReplyResponseDto>> {
-        val member = authentication.principal as Member
+        validateWriter(writerId = dto.replyId, authenticatedId = member.id!!)
         val replyList = replyService.delete(dto.replyId, dto.boardId).map { it.toResponseDto(member.id!!) }
         return ResponseDto(data = replyList)
     }

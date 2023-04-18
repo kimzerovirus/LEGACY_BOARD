@@ -8,8 +8,9 @@ import me.kzv.legacyboard.board.dto.CreateBoardRequestDto
 import me.kzv.legacyboard.board.dto.CreateBoardResponseDto
 import me.kzv.legacyboard.board.dto.DeleteBoardRequestDto
 import me.kzv.legacyboard.board.dto.EditBoardRequestDto
+import me.kzv.legacyboard.infra.utils.validateWriter
+import me.kzv.legacyboard.member.CurrentMember
 import me.kzv.legacyboard.member.Member
-import org.springframework.security.core.Authentication
 import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
 import org.springframework.web.bind.annotation.*
@@ -44,16 +45,18 @@ class BoardController(
     @PostMapping("api/v1/board/write")
     fun createBoard(
         @RequestBody dto: CreateBoardRequestDto,
-        authentication: Authentication
+        @CurrentMember member: Member
     ): ResponseDto<CreateBoardResponseDto> {
-        val member = authentication.principal as Member
         val id = boardService.write(dto.toEntity(member))
         return ResponseDto(data = CreateBoardResponseDto(id))
     }
 
     @GetMapping("/board/edit/{id}")
-    fun edit(@PathVariable id: Long, authentication: Authentication, model: Model): String {
-        val member = authentication.principal as Member
+    fun edit(
+        @PathVariable id: Long,
+        @CurrentMember member: Member,
+        model: Model
+    ): String {
         val board = boardService.getOne(id)
         try {
             validateWriter(writerId = board.member.id!!, authenticatedId = member.id!!)
@@ -69,25 +72,25 @@ class BoardController(
     fun editBoard(
         @PathVariable boardId: Long,
         @RequestBody dto: EditBoardRequestDto,
-        authentication: Authentication
+        @CurrentMember member: Member
     ): ResponseDto<Any> {
-        val member = authentication.principal as Member
-        validateWriter(writerId = dto.memberId, authenticatedId = member.id!!)
-        boardService.edit(boardId, title = dto.title, content = dto.content)
+        with(dto) {
+            validateWriter(writerId = memberId, authenticatedId = member.id!!)
+            boardService.edit(boardId, title = title, content = content)
+        }
         return ResponseDto()
     }
 
 
     @ResponseBody
     @PostMapping("api/v1/board/delete")
-    fun deleteBoard(@RequestBody dto: DeleteBoardRequestDto, authentication: Authentication): ResponseDto<Any> {
-        val member = authentication.principal as Member
+    fun deleteBoard(
+        @RequestBody dto: DeleteBoardRequestDto,
+        @CurrentMember member: Member
+    ): ResponseDto<Any> {
         validateWriter(writerId = dto.memberId, authenticatedId = member.id!!)
         boardService.delete(dto.boardId)
         return ResponseDto()
     }
 
-    private fun validateWriter(writerId: Long, authenticatedId: Long) {
-        check(writerId != authenticatedId) { "유효하지 않은 접근입니다." }
-    }
 }
