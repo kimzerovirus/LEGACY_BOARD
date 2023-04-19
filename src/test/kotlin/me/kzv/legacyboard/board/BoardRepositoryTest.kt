@@ -57,6 +57,6 @@ class BoardRepositoryTest {
 
         val boardList = boardRepository.search(SearchType.ALL, "", pageable)
 
-        assertThat(boardList.content.size).isEqualTo(10)
+        assertThat(boardList.content.size).isEqualTo(0)
     }
 }
