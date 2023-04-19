@@ -8,7 +8,6 @@ import me.kzv.legacyboard.board.dto.CreateBoardRequestDto
 import me.kzv.legacyboard.board.dto.CreateBoardResponseDto
 import me.kzv.legacyboard.board.dto.DeleteBoardRequestDto
 import me.kzv.legacyboard.board.dto.EditBoardRequestDto
-import me.kzv.legacyboard.infra.utils.validateWriter
 import me.kzv.legacyboard.member.CurrentMember
 import me.kzv.legacyboard.member.Member
 import org.springframework.stereotype.Controller
@@ -91,6 +90,10 @@ class BoardController(
         validateWriter(writerId = dto.memberId, authenticatedId = member.id!!)
         boardService.delete(dto.boardId)
         return ResponseDto()
+    }
+
+    private fun validateWriter(writerId: Long, authenticatedId: Long) {
+        require(writerId == authenticatedId) { "유효하지 않은 접근입니다." }
     }
 
 }

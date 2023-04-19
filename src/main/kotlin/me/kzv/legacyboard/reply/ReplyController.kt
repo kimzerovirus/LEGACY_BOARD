@@ -1,7 +1,6 @@
 package me.kzv.legacyboard.reply
 
 import me.kzv.legacyboard.infra.common.dto.ResponseDto
-import me.kzv.legacyboard.infra.utils.validateWriter
 import me.kzv.legacyboard.member.CurrentMember
 import me.kzv.legacyboard.member.Member
 import me.kzv.legacyboard.reply.dto.*
@@ -30,7 +29,6 @@ class ReplyController(
         @RequestBody dto: EditReplyRequestDto,
         @CurrentMember member: Member
     ): ResponseDto<List<ReplyResponseDto>> {
-        validateWriter(writerId = dto.replyId, authenticatedId = member.id!!)
         val replyList = replyService.edit(dto.content, replyId = dto.replyId, boardId = dto.boardId, ).map { it.toResponseDto(member.id!!) }
         return ResponseDto(data = replyList)
     }
@@ -41,7 +39,6 @@ class ReplyController(
         @RequestBody dto: DeleteReplyRequestDto,
         @CurrentMember member: Member
     ): ResponseDto<List<ReplyResponseDto>> {
-        validateWriter(writerId = dto.replyId, authenticatedId = member.id!!)
         val replyList = replyService.delete(dto.replyId, dto.boardId).map { it.toResponseDto(member.id!!) }
         return ResponseDto(data = replyList)
     }
