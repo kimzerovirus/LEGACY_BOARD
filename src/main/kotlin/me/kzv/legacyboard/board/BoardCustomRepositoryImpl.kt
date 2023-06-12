@@ -36,13 +36,11 @@ class BoardCustomRepositoryImpl(
     }
 
     private fun searchCondition(searchType: SearchType, keyword: String): BooleanExpression? {
-        return when(searchType){
+        return when (searchType) {
             TITLE -> titleContains(keyword)
             CONTENT -> contentContains(keyword)
             NICKNAME -> nicknameContains(keyword)
-            else -> if (keyword != "") {
-                titleContains(keyword).or(contentContains(keyword).or(nicknameContains(keyword)))
-            } else null
+            ALL -> titleContains(keyword).or(contentContains(keyword).or(nicknameContains(keyword)))
         }
     }
 

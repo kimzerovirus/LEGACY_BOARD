@@ -77,7 +77,7 @@
         callbacks: {
             onImageUpload: function(files) {
                 console.log(files[0])
-                const url = 'http://localhost:8080/api/v1/file/upload'
+                const url = 'http://localhost:8080/api/file/upload'
                 const formData = new FormData();
                 formData.append("file", files[0]);
 
@@ -92,7 +92,7 @@
     });
 
     document.getElementById('editBoard').addEventListener('click', () => {
-        const url = 'http://localhost:8080/api/v1/board/edit/${board.id}'
+        const url = 'http://localhost:8080/api/board/edit/${board.id}'
         const method = 'POST'
         const body = {
             title: document.getElementById('title').value || '',

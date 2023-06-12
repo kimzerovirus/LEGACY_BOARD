@@ -10,7 +10,7 @@ import org.springframework.web.multipart.MultipartFile
 class FileController(
     private val fileService: FileService
 ) {
-    @PostMapping("/api/v1/file/upload")
+    @PostMapping("/api/file/upload")
     fun upload(file: MultipartFile): ResponseDto<FileResponseDto> {
         println(file)
         val url = fileService.uploadFile(file)

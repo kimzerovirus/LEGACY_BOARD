@@ -4,6 +4,21 @@
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/summernote@0.8.20/dist/summernote-lite.min.css"
       integrity="sha256-IKhQVXDfwbVELwiR0ke6dX+pJt0RSmWky3WB2pNx9Hg=" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@yaireo/tagify@4.17.8/dist/tagify.min.css">
+
+<style>
+    .tagify{
+        padding: 1px 2px 1px 8px !important;
+    }
+
+    .tagify span{
+        padding: 0 !important;
+        margin: 0 !important;
+    }
+    .tagify__dropdown{
+        width: 100% !important;
+    }
+</style>
 
 <jsp:include page="../../layout/header.jsp"></jsp:include>
 
@@ -16,6 +31,9 @@
 <h5 class="mt-3">제목</h5>
 <input type="text" class="w-100 ps-2" placeholder="제목을 입력해주세요." name="title" id="title">
 
+<h5 class="mt-3">태그<small class="text-info" style="font-size: 0.875rem"> - 내용을 대표하는 태그 3개 정도 입력해주세요.</small></h5>
+<input type="text" class="w-100 ps-2" placeholder="태그를 입력해주세요." name="tag" id="tag">
+
 <h5 class="mt-3">본문</h5>
 <div class="card">
     <div id="summernote"></div>
@@ -25,7 +43,6 @@
     <a href="/" class="btn btn-outline-secondary btn-lg px-5">취소</a>
     <button type="button" class="btn btn-primary btn-lg px-5" id="createBoard">등록</button>
 </div>
-
 <jsp:include page="../../layout/footer.jsp"></jsp:include>
 
 <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.slim.min.js"
@@ -44,6 +61,8 @@
 
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 
+<script src="https://unpkg.com/@yaireo/tagify"></script>
+
 <script src="/resources/js/api.js"></script>
 <script>
     $('#summernote').summernote({
@@ -54,7 +73,7 @@
         callbacks: {
             onImageUpload: function(files) {
                 console.log(files[0])
-                const url = 'http://localhost:8080/api/v1/file/upload'
+                const url = 'http://localhost:8080/api/file/upload'
                 const formData = new FormData();
                 formData.append("file", files[0]);
 
@@ -69,7 +88,7 @@
     });
 
     document.getElementById('createBoard').addEventListener('click', () => {
-        const url = 'http://localhost:8080/api/v1/board/write'
+        const url = 'http://localhost:8080/api/board/write'
         const method = 'POST'
         const body = {
             title: document.getElementById('title').value || '',
@@ -84,4 +103,16 @@
             apiCall(url, method, body).then(({data}) => { window.location = '/board/view/' + data.id })
         }
     })
+
+    const tagInput = document.getElementById("tag");
+    const tagify = new Tagify(tagInput,{
+        whitelist: ["foo", "bar", "baz"],
+        dropdown: {
+            position: "input",
+            enabled: 0,
+        }
+    })
+
+    tagify.DOM.input.classList.add('form-control');
+    tagify.DOM.scope.parentNode.insertBefore(tagify.DOM.input, tagify.DOM.scope);
 </script>

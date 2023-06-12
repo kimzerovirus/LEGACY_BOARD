@@ -1,13 +1,12 @@
 package me.kzv.legacyboard.board
 
-import me.kzv.legacyboard.infra.common.dto.ResponseDto
-import me.kzv.legacyboard.infra.common.dto.PageRequestDto
-import me.kzv.legacyboard.infra.common.dto.PageResponseDto
-import me.kzv.legacyboard.infra.exception.TisException
 import me.kzv.legacyboard.board.dto.CreateBoardRequestDto
 import me.kzv.legacyboard.board.dto.CreateBoardResponseDto
 import me.kzv.legacyboard.board.dto.DeleteBoardRequestDto
 import me.kzv.legacyboard.board.dto.EditBoardRequestDto
+import me.kzv.legacyboard.infra.common.dto.PageRequestDto
+import me.kzv.legacyboard.infra.common.dto.PageResponseDto
+import me.kzv.legacyboard.infra.common.dto.ResponseDto
 import me.kzv.legacyboard.member.CurrentMember
 import me.kzv.legacyboard.member.Member
 import org.springframework.stereotype.Controller
@@ -41,7 +40,7 @@ class BoardController(
     }
 
     @ResponseBody
-    @PostMapping("api/v1/board/write")
+    @PostMapping("api/board/write")
     fun createBoard(
         @RequestBody dto: CreateBoardRequestDto,
         @CurrentMember member: Member
@@ -59,7 +58,7 @@ class BoardController(
         val board = boardService.getOne(id)
         try {
             validateWriter(writerId = board.member.id!!, authenticatedId = member.id!!)
-        } catch (e: TisException) {
+        } catch (e: IllegalArgumentException) {
             return "redirect:/"
         }
         model.addAttribute("board", board)
@@ -67,7 +66,7 @@ class BoardController(
     }
 
     @ResponseBody
-    @PostMapping("api/v1/board/edit/{boardId}")
+    @PostMapping("api/board/edit/{boardId}")
     fun editBoard(
         @PathVariable boardId: Long,
         @RequestBody dto: EditBoardRequestDto,
@@ -80,9 +79,8 @@ class BoardController(
         return ResponseDto()
     }
 
-
     @ResponseBody
-    @PostMapping("api/v1/board/delete")
+    @PostMapping("api/board/delete")
     fun deleteBoard(
         @RequestBody dto: DeleteBoardRequestDto,
         @CurrentMember member: Member

@@ -4,6 +4,7 @@ import jakarta.persistence.*
 import me.kzv.legacyboard.member.Member
 import me.kzv.legacyboard.reply.Reply
 import me.kzv.legacyboard.infra.common.jpa.BaseEntity
+import me.kzv.legacyboard.tag.BoardTag
 
 @Entity
 class Board(
@@ -24,22 +25,26 @@ class Board(
     @Column(nullable = false, columnDefinition = "TEXT")
     var content: String,
 
-    /** 이미지 */
-    @ElementCollection
-    @CollectionTable(name = "board_img", joinColumns = [JoinColumn(name = "board_id")])
-    var images: MutableList<String> = mutableListOf(),
+//    /** 이미지 */
+//    @ElementCollection
+//    @CollectionTable(name = "board_img", joinColumns = [JoinColumn(name = "board_id")])
+//    var images: MutableList<String> = mutableListOf(),
 ) : BaseEntity() {
+    /** 태그 */
+    @OneToMany(mappedBy = "board")
+    val tags: Set<BoardTag> = mutableSetOf()
+
     /** 조회수 */
-    var count: Int = 0
+    var count: Int = -1
 
     fun update(title: String, content: String) {
         this.title = title
         this.content = content
     }
 
-    fun updateImages(images: MutableList<String>) {
-        this.images = images
-    }
+//    fun updateImages(images: MutableList<String>) {
+//        this.images = images
+//    }
 
     fun updateCount() {
         this.count += 1

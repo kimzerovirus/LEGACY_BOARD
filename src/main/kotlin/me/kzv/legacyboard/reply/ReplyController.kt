@@ -14,7 +14,7 @@ class ReplyController(
     private val replyService: ReplyService,
 ) {
     @ResponseBody
-    @PostMapping("/api/v1/reply/create")
+    @PostMapping("/api/reply/create")
     fun createReply(
         @RequestBody dto: CreateReplyRequestDto,
         @CurrentMember member: Member
@@ -24,7 +24,7 @@ class ReplyController(
     }
 
     @ResponseBody
-    @PostMapping("/api/v1/reply/edit")
+    @PostMapping("/api/reply/edit")
     fun editReply(
         @RequestBody dto: EditReplyRequestDto,
         @CurrentMember member: Member
@@ -34,7 +34,7 @@ class ReplyController(
     }
 
     @ResponseBody
-    @PostMapping("/api/v1/reply/delete")
+    @PostMapping("/api/reply/delete")
     fun deleteReply(
         @RequestBody dto: DeleteReplyRequestDto,
         @CurrentMember member: Member
