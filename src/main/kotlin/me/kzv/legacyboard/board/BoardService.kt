@@ -26,6 +26,7 @@ class BoardService(
     @Transactional
     fun read(boardId: Long): Board {
         val board = boardRepository.findByIdOrNull(boardId) ?: throw TisException("게시글이 존재하지 않습니다.")
+        board.updateCount()
         return board
     }
 

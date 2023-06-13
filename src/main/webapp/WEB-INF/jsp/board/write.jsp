@@ -6,20 +6,6 @@
       integrity="sha256-IKhQVXDfwbVELwiR0ke6dX+pJt0RSmWky3WB2pNx9Hg=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@yaireo/tagify@4.17.8/dist/tagify.min.css">
 
-<style>
-    .tagify{
-        padding: 1px 2px 1px 8px !important;
-    }
-
-    .tagify span{
-        padding: 0 !important;
-        margin: 0 !important;
-    }
-    .tagify__dropdown{
-        width: 100% !important;
-    }
-</style>
-
 <jsp:include page="../../layout/header.jsp"></jsp:include>
 
 <div class="card">
@@ -29,10 +15,10 @@
 </div>
 
 <h5 class="mt-3">제목</h5>
-<input type="text" class="w-100 ps-2" placeholder="제목을 입력해주세요." name="title" id="title">
+<input type="text" class="form-control" placeholder="제목을 입력해주세요." name="title" id="title">
 
 <h5 class="mt-3">태그<small class="text-info" style="font-size: 0.875rem"> - 내용을 대표하는 태그 3개 정도 입력해주세요.</small></h5>
-<input type="text" class="w-100 ps-2" placeholder="태그를 입력해주세요." name="tag" id="tag">
+<div id="tag"></div>
 
 <h5 class="mt-3">본문</h5>
 <div class="card">
@@ -64,6 +50,7 @@
 <script src="https://unpkg.com/@yaireo/tagify"></script>
 
 <script src="/resources/js/api.js"></script>
+<script src="/resources/js/autotaginput.js"></script>
 <script>
     $('#summernote').summernote({
         placeholder: '내용을 입력해주세요.',
@@ -92,7 +79,8 @@
         const method = 'POST'
         const body = {
             title: document.getElementById('title').value || '',
-            content: $('#summernote').summernote('code') || ''
+            content: $('#summernote').summernote('code') || '',
+            // tags: tagData
         }
 
         if (body.title === '') {
@@ -104,15 +92,6 @@
         }
     })
 
-    const tagInput = document.getElementById("tag");
-    const tagify = new Tagify(tagInput,{
-        whitelist: ["foo", "bar", "baz"],
-        dropdown: {
-            position: "input",
-            enabled: 0,
-        }
-    })
-
-    tagify.DOM.input.classList.add('form-control');
-    tagify.DOM.scope.parentNode.insertBefore(tagify.DOM.input, tagify.DOM.scope);
+    const tagWrap = document.getElementById("tag");
+    const tagData = new AutoTagInput(tagWrap,'').getTags();
 </script>
