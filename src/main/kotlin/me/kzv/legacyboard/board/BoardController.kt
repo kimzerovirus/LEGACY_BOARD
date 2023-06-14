@@ -45,7 +45,7 @@ class BoardController(
         @RequestBody dto: CreateBoardRequestDto,
         @CurrentMember member: Member
     ): ResponseDto<CreateBoardResponseDto> {
-        val id = boardService.write(dto.toEntity(member))
+        val id = boardService.write(dto.toEntity(member), dto.tags)
         return ResponseDto(data = CreateBoardResponseDto(id))
     }
 

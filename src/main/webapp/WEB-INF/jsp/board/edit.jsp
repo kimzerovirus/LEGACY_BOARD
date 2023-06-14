@@ -100,6 +100,7 @@
         const body = {
             title: document.getElementById('title').value || '',
             content: $('#summernote').summernote('code') || '',
+            tags: tagData,
             memberId: ${currentUserId},
         }
 
@@ -115,5 +116,5 @@
     })
 
     const tagWrap = document.getElementById("tag");
-    const tagData = new AutoTagInput(tagWrap,'http://localhost:8080/api/tag/search').getTags();
+    const tagData = new AutoTagInput(tagWrap,'http://localhost:8080/api/tag/search', ${board.tags}).getTags();
 </script>

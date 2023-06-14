@@ -1,9 +1,9 @@
 package me.kzv.legacyboard.board
 
 import jakarta.persistence.*
+import me.kzv.legacyboard.infra.common.jpa.BaseEntity
 import me.kzv.legacyboard.member.Member
 import me.kzv.legacyboard.reply.Reply
-import me.kzv.legacyboard.infra.common.jpa.BaseEntity
 import me.kzv.legacyboard.tag.BoardTag
 
 @Entity
@@ -30,10 +30,6 @@ class Board(
 //    @CollectionTable(name = "board_img", joinColumns = [JoinColumn(name = "board_id")])
 //    var images: MutableList<String> = mutableListOf(),
 ) : BaseEntity() {
-    /** 태그 */
-    @OneToMany(mappedBy = "board")
-    val tags: Set<BoardTag> = mutableSetOf()
-
     /** 조회수 */
     var count: Int = -1
 

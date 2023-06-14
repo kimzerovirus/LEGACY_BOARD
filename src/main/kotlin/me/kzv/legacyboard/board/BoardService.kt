@@ -1,21 +1,26 @@
 package me.kzv.legacyboard.board
 
 import me.kzv.legacyboard.infra.exception.TisException
+import me.kzv.legacyboard.tag.Tag
+import me.kzv.legacyboard.tag.TagService
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
-import java.util.regex.Pattern
 
 @Service
 class BoardService(
-    private val boardRepository: BoardRepository
+    private val boardRepository: BoardRepository,
+    private val tagService: TagService
 ) {
 
     @Transactional
-    fun write(board: Board): Long {
-       return boardRepository.save(board).id!!
+    fun write(board: Board, tags: List<Tag>): Long {
+        val savedBoard = boardRepository.save(board)
+        val savedTags = tagService.searchAndCreate(tags)
+        savedBoard.addTags(savedTags)
+        return savedBoard.id!!
     }
 
     @Transactional(readOnly = true)

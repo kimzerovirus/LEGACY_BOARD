@@ -1,5 +1,6 @@
 package me.kzv.legacyboard.tag
 
+import me.kzv.legacyboard.board.Board
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 
@@ -13,10 +14,10 @@ class TagService(
     }
 
     @Transactional
-    fun searchAndCreate(tags: List<Tag>): List<Tag> {
+    fun searchAndCreate(tags: List<Tag>): List<BoardTag> {
         return tags.map {
-            if (it.id == null) tagRepository.save(it)
-            else it
+            if(it.id == null) BoardTag(tagRepository.save(it))
+            else BoardTag(it)
         }
     }
 }

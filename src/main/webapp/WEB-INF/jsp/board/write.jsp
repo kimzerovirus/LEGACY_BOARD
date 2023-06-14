@@ -88,7 +88,7 @@
         const body = {
             title: document.getElementById('title').value || '',
             content: $('#summernote').summernote('code') || '',
-            // tags: tagData
+            tags: tagData
         }
 
         if (body.title === '') {

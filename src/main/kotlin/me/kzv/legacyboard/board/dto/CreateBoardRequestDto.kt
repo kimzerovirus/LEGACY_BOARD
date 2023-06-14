@@ -10,7 +10,7 @@ data class CreateBoardRequestDto(
     val title: String,
     @field:NotBlank
     val content: String,
-    val tags: MutableSet<Tag>
+    val tags: List<Tag>
 ){
     fun toEntity(member: Member) = Board(member, title = title, content = content)
 }
