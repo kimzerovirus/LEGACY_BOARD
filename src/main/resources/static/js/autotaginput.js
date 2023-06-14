@@ -1,18 +1,29 @@
 class AutoTagInput {
-    constructor(target, url) {
+    constructor(target, url, initData = []) {
         this.target = target;
         this.el = document.createElement('input');
+        this.el.placeholder = '태그를 입력해주세요.';
         this.url = url;
         this.flag = true;
+        this.debouncing_time = 800; // 지연시간
 
         this.tagData = new CustomSet();
 
         this.target.classList.add('form-group')
         this.el.classList.add('form-control')
         this.target.appendChild(this.el);
-        this.createTagBox();
         this.el.addEventListener('input', this.onInput.bind(this));
         this.target.addEventListener('focusout', this.removeDropdown.bind(this));
+
+        // 태그 데이터 초기화
+        this.init(initData);
+    }
+
+    init(data) {
+        this.createTagBox();
+        data.forEach(({name, id}) => {
+            this.addTag(name, id);
+        });
     }
 
     onInput() {
@@ -20,14 +31,14 @@ class AutoTagInput {
         if (this.el.value === '') return;
         if (this.flag) {
             this.flag = false;
-            setTimeout(() => {
+            setTimeout(async () => {
                 this.flag = true;
                 this.removeDropdown();
                 const value = this.el.value.toLowerCase();
                 if (value === '') return;
-                const data = this.getData()
-                this.createDropdown(data)
-            }, 1000)
+                const {data: {tags}} = await this.getData(value);
+                this.createDropdown(tags);
+            }, this.debouncing_time);
         }
         this.createLoadingBox();
     }
@@ -50,24 +61,29 @@ class AutoTagInput {
         badge.style.marginRight = '0.25rem';
         badge.dataset.name = name;
         badge.dataset.id = id;
-        badge.innerText = '#' + name;
+        badge.innerText = '#' + name
 
-        const anchor = document.createElement('a');
-        anchor.classList.add('alert-link')
-        badge.appendChild(anchor);
+        const xMark = document.createElement('i');
+        xMark.classList.add('fa-solid', 'fa-xmark');
+        xMark.style.marginLeft = '8px';
+        xMark.style.cursor = 'pointer';
+        xMark.addEventListener('click', () => this.removeTag(badge));
+
+        badge.appendChild(xMark);
 
         this.tagBox.appendChild(badge);
         this.clearInput();
     }
 
-    removeTag() {
-
+    removeTag(el) {
+        this.tagData.remove(el.dataset.name)
+        el.remove();
     }
 
     createLoadingBox() {
         const div = document.createElement('div');
         div.classList.add('card', 'w-100', 'position-absolute', 'py-2');
-        div.style.zIndex = 1000;
+        div.style.zIndex = '1000';
         div.style.top = '12px'
         div.style.textAlign = 'center';
         div.innerText = 'Loading...'
@@ -83,7 +99,7 @@ class AutoTagInput {
     createDropdown(tags) {
         this.whitelist = document.createElement('ul');
         this.whitelist.classList.add('list-group', 'position-absolute', 'w-100');
-        this.whitelist.style.zIndex = 1000;
+        this.whitelist.style.zIndex = '1000';
         this.whitelist.style.top = '12px';
         this.whitelist.style.maxHeight = '360px';
         this.whitelist.style.overflowY = 'auto';
@@ -127,35 +143,19 @@ class AutoTagInput {
         this.removeLoadingBox();
     }
 
-    hideDropdown(){
-        if (this.whitelist) this.whitelist.style.display = 'none';
-    }
-
     clearInput() {
         this.el.value = '';
         this.removeDropdown();
     }
 
-    getData(data) {
-        // const res = await fetch(this.url);
-        // return await res.json();
-        return [
-            {name: '태그1', id:1},
-            {name: '태그2', id:1},
-            {name: '태그3', id:1},
-            {name: '태그4', id:1},
-            {name: '태그5', id:1},
-            {name: '태그6', id:1},
-            {name: '태그7', id:1},
-            {name: '태그8', id:1},
-            {name: '태그9', id:1},
-            {name: '태그10', id:1},
-            {name: '태그11', id:1},
-            {name: '태그12', id:1},
-            {name: '태그13', id:1},
-            {name: '태그14', id:1},
-            {name: '태그15', id:1},
-        ]
+    async getData(name) {
+        const res = await fetch(this.url, {
+            method: 'POST',
+            headers: {"Content-Type": "application/json"},
+            body: JSON.stringify({name})
+        });
+
+        return await res.json();
     }
 
     getTags() {
@@ -200,3 +200,21 @@ class CustomSet {
         return this.arr;
     }
 }
+
+// const mock = [
+//     {name: '태그1', id: 1},
+//     {name: '태그2', id: 2},
+//     {name: '태그3', id: 3},
+//     {name: '태그4', id: 4},
+//     {name: '태그5', id: 5},
+//     {name: '태그6', id: 6},
+//     {name: '태그7', id: 7},
+//     {name: '태그8', id: 8},
+//     {name: '태그9', id: 9},
+//     {name: '태그10', id: 10},
+//     {name: '태그11', id: 11},
+//     {name: '태그12', id: 12},
+//     {name: '태그13', id: 13},
+//     {name: '태그14', id: 14},
+//     {name: '태그15', id: 15},
+// ];

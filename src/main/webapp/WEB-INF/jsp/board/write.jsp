@@ -57,6 +57,14 @@
         tabsize: 2,
         height: 400,
         lang: 'ko-KR',
+        toolbar: [
+            ['fontsize', ['fontsize']],
+            ['style', ['bold', 'italic', 'underline','strikethrough', 'clear']],
+            ['color', ['forecolor','color']],
+            ['para', ['ul', 'ol', 'paragraph']],
+            ['height', ['height']],
+            ['insert',['link']],
+        ],
         callbacks: {
             onImageUpload: function(files) {
                 console.log(files[0])
@@ -93,5 +101,5 @@
     })
 
     const tagWrap = document.getElementById("tag");
-    const tagData = new AutoTagInput(tagWrap,'').getTags();
+    const tagData = new AutoTagInput(tagWrap,'http://localhost:8080/api/tag/search').getTags();
 </script>

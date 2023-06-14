@@ -35,6 +35,9 @@
     <div id="summernote">${board.content}</div>
 </div>
 
+<h5 class="mt-3">태그<small class="text-info" style="font-size: 0.875rem"> - 내용을 대표하는 태그 3개 정도 입력해주세요.</small></h5>
+<div id="tag"></div>
+
 <div class="d-flex justify-content-center mt-3">
     <a href="/board/view/${board.id}" class="btn btn-outline-secondary btn-lg px-5">취소</a>
     <button type="button" class="btn btn-primary btn-lg px-5" id="editBoard">등록</button>
@@ -59,17 +62,17 @@
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 
 <script src="/resources/js/api.js"></script>
+<script src="/resources/js/autotaginput.js"></script>
 <script>
     $('#summernote').summernote({
         placeholder: '내용을 입력해주세요.',
         toolbar: [
-            // [groupName, [list of button]]
-            ['style', ['bold', 'italic', 'underline', 'clear']],
-            ['font', ['strikethrough', 'superscript', 'subscript']],
             ['fontsize', ['fontsize']],
-            ['color', ['color']],
+            ['style', ['bold', 'italic', 'underline','strikethrough', 'clear']],
+            ['color', ['forecolor','color']],
             ['para', ['ul', 'ol', 'paragraph']],
-            ['height', ['height']]
+            ['height', ['height']],
+            ['insert',['link']],
         ],
         tabsize: 2,
         height: 400,
@@ -110,4 +113,7 @@
             })
         }
     })
+
+    const tagWrap = document.getElementById("tag");
+    const tagData = new AutoTagInput(tagWrap,'http://localhost:8080/api/tag/search').getTags();
 </script>
