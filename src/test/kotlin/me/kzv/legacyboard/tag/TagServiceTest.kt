@@ -30,7 +30,7 @@ class TagServiceTest {
         val tags = mutableListOf(Tag("태그1"), Tag("태그2"))
         for (tag in tags) assertThat(tag.id).isNull()
 
-        tagService.searchAndCreate(board, tags)
+        tagService.saveBoardTag(board, tags)
 
         val size = tags.size
         val savedTags = tagRepository.findAll()

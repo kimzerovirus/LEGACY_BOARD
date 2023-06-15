@@ -42,9 +42,10 @@
             <div style="min-height: 300px;">
                 ${board.content}
             </div>
-            <div class="mt-3">
+            <div class="mt-3 d-flex">
+                <small class="block text-secondary border-1 border border-secondary" style="font-size: 12px; padding: 2px 6px;">사는 얘기</small>
                 <c:forEach var="tag" items="${board.tags}">
-                    <small class="badge bg-secondary">#${tag.tag.name}</small>
+                    <small class="block" style="padding: 2px 6px;">#${tag.tag.name}</small>
                 </c:forEach>
             </div>
         </div>

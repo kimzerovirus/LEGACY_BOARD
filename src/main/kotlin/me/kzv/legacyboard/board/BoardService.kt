@@ -1,13 +1,10 @@
 package me.kzv.legacyboard.board
 
 import me.kzv.legacyboard.infra.exception.TisException
-import me.kzv.legacyboard.tag.BoardTag
-import me.kzv.legacyboard.tag.BoardTagRepository
 import me.kzv.legacyboard.tag.Tag
 import me.kzv.legacyboard.tag.TagService
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
-import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 
@@ -20,7 +17,7 @@ class BoardService(
     @Transactional
     fun write(board: Board, tags: List<Tag>): Long {
         val savedBoard = boardRepository.save(board)
-        tagService.searchAndCreate(savedBoard, tags)
+        tagService.saveBoardTag(savedBoard, tags)
         return savedBoard.id!!
     }
 

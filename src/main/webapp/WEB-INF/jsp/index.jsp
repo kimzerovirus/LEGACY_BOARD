@@ -43,27 +43,37 @@
         </thead>
         </c:if>
     </c:if>
+        <thead>
+        <th></th>
+        </thead>
         <tbody>
         <c:forEach var="board" items="${boardList.content}">
             <tr>
                 <td class="py-3">
-                    <a href="/board/view/${board.id}" style="text-decoration: none; cursor: pointer; min-height: 87px; display: block;">
-                        <div class="d-flex justify-content-between text-secondary mb-2">
-                            <p style="margin: 0; font-size: 0.875rem;">${board.member.nickname} · ${board.count}</p>
-                            <c:set var="today" value="<%=new java.util.Date()%>"/>
-                            <fmt:formatDate var="now" type="date" value="${today}" pattern="yyyy-MM-dd"/>
-                            <fmt:parseDate value="${ board.createdAt }" pattern="yyyy-MM-dd'T'HH:mm" var="parsedDateTime" type="both"/>
-                            <fmt:formatDate var="parsedDate" pattern="yyyy-MM-dd" value="${parsedDateTime}"/>
-                            <p style="margin: 0; font-size: 0.875rem;">
-                                <c:if test="${now eq parsedDate}"><fmt:formatDate var="parsedDate" pattern="HH:mm" value="${parsedDateTime}"/></c:if>
-                                <c:if test="${now ne parsedDate}">${parsedDate}</c:if>
-                            </p>
+                    <div class="d-flex flex-column justify-content-between" style="min-height: 87px;">
+                        <div>
+                            <div class="d-flex justify-content-between text-secondary mb-2">
+                                <p style="margin: 0; font-size: 0.875rem;">${board.member.nickname} · ${board.count}</p>
+                                <c:set var="today" value="<%=new java.util.Date()%>"/>
+                                <fmt:formatDate var="now" type="date" value="${today}" pattern="yyyy-MM-dd"/>
+                                <fmt:parseDate value="${ board.createdAt }" pattern="yyyy-MM-dd'T'HH:mm" var="parsedDateTime" type="both"/>
+                                <fmt:formatDate var="parsedDate" pattern="yyyy-MM-dd" value="${parsedDateTime}"/>
+                                <p style="margin: 0; font-size: 0.875rem;">
+                                    <c:if test="${now eq parsedDate}"><fmt:formatDate var="parsedDate" pattern="HH:mm" value="${parsedDateTime}"/></c:if>
+                                    <c:if test="${now ne parsedDate}">${parsedDate}</c:if>
+                                </p>
+                            </div>
+                            <h5 class="mb-3">
+                                <a href="/board/view/${board.id}" style="text-decoration: none; font-weight: bold;">${board.title}</a>
+                            </h5>
                         </div>
-                        <h5 class="mb-3">${board.title}</h5>
-                        <c:forEach var="tag" items="${board.tags}">
-                            <small class="badge bg-secondary">#${tag.tag.name}</small>
-                        </c:forEach>
-                    </a>
+                        <div class="d-flex">
+                            <small class="text-secondary border-1 border border-secondary block" style="padding: 2px 6px; font-size: 12px;">사는 얘기</small>
+                            <c:forEach var="tag" items="${board.tags}">
+                                <small class="block" style="padding: 2px 6px;">#${tag.tag.name}</small>
+                            </c:forEach>
+                        </div>
+                    </div>
                 </td>
             </tr>
         </c:forEach>

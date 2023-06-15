@@ -17,24 +17,32 @@ class TagService(
     }
 
     @Transactional
-    fun searchAndCreate(board: Board, tags: List<Tag>) {
-        tags.map {
-            if (it.id == null) BoardTag(board, tagRepository.save(it))
-            else BoardTag(board, it)
-        }.forEach {
+    fun saveBoardTag(board: Board, tags: List<Tag>) {
+        searchAndCreate(tags, board).forEach {
             boardTagRepository.save(it)
         }
     }
 
+
     @Transactional
     fun updateBoardTag(board: Board, tags: List<Tag>) {
         deleteBoardTag(board.id!!)
-        boardTagRepository.saveAll(tags.map { BoardTag(board, it) })
+        boardTagRepository.saveAll(searchAndCreate(tags, board))
     }
 
     @Transactional
     fun deleteBoardTag(boardId: Long) {
 //        boardTagRepository.deleteByBoard_id(boardId) // 실제로는 fk로 삭제하지 않고 boardTag pk 를 찾아서 해당 pk 하나하나로 삭제함 slow query
         boardTagRepository.deleteQueryByBoardId(boardId)
+    }
+
+    private fun searchAndCreate(
+        tags: List<Tag>,
+        board: Board
+    ): List<BoardTag> {
+        return tags.map {
+            if (it.id == null) BoardTag(board, tagRepository.save(it))
+            else BoardTag(board, it)
+        }
     }
 }

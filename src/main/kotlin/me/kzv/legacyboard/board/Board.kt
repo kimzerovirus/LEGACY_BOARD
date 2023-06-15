@@ -21,6 +21,11 @@ class Board(
     @OneToMany(mappedBy = "board")
     val tags: Set<BoardTag> = mutableSetOf(),
 
+//    /** 토픽 */
+//    @Column(nullable = false)
+//    @Enumerated(EnumType.STRING)
+//    var topic: TopicType,
+
     /** 글 제목 */
     @Column(nullable = false)
     var title: String,
