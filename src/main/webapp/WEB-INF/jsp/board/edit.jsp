@@ -1,3 +1,6 @@
+<%@ page import="me.kzv.legacyboard.tag.Tag" %>
+<%@ page import="java.util.List" %>
+<%@ page import="me.kzv.legacyboard.tag.BoardTag" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
@@ -30,19 +33,20 @@
 <h5 class="mt-3">제목</h5>
 <input type="text" class="w-100 ps-2" placeholder="제목을 입력해주세요." id="title" name="title" value="${board.title}">
 
+<h5 class="mt-3">태그<small class="text-info" style="font-size: 0.875rem"> - 내용을 대표하는 태그 3개 정도 입력해주세요.</small></h5>
+<div id="tag"></div>
+
 <h5 class="mt-3">본문</h5>
 <div class="card">
     <div id="summernote">${board.content}</div>
 </div>
-
-<h5 class="mt-3">태그<small class="text-info" style="font-size: 0.875rem"> - 내용을 대표하는 태그 3개 정도 입력해주세요.</small></h5>
-<div id="tag"></div>
 
 <div class="d-flex justify-content-center mt-3">
     <a href="/board/view/${board.id}" class="btn btn-outline-secondary btn-lg px-5">취소</a>
     <button type="button" class="btn btn-primary btn-lg px-5" id="editBoard">등록</button>
 </div>
 
+=
 <jsp:include page="../../layout/footer.jsp"></jsp:include>
 
 <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.slim.min.js"
@@ -66,6 +70,9 @@
 <script>
     $('#summernote').summernote({
         placeholder: '내용을 입력해주세요.',
+        tabsize: 2,
+        height: 400,
+        lang: 'ko-KR',
         toolbar: [
             ['fontsize', ['fontsize']],
             ['style', ['bold', 'italic', 'underline','strikethrough', 'clear']],
@@ -74,13 +81,9 @@
             ['height', ['height']],
             ['insert',['link']],
         ],
-        tabsize: 2,
-        height: 400,
-        lang: 'ko-KR',
         callbacks: {
             onImageUpload: function(files) {
-                console.log(files[0])
-                const url = 'http://localhost:8080/api/file/upload'
+                const url = 'http://localhost:8080/api/v1/file/upload'
                 const formData = new FormData();
                 formData.append("file", files[0]);
 
@@ -100,8 +103,8 @@
         const body = {
             title: document.getElementById('title').value || '',
             content: $('#summernote').summernote('code') || '',
-            tags: tagData,
-            memberId: ${currentUserId},
+            memberId: "${currentUserId}",
+            tags: tagData
         }
 
         if (body.title === '') {
@@ -115,6 +118,14 @@
         }
     })
 
+    const tagList = [];
+    <c:forEach var="tag" items="${board.tags}">
+        tagList.push({
+            id: "${tag.tag.id}",
+            name: "${tag.tag.name}",
+        })
+    </c:forEach>
+
     const tagWrap = document.getElementById("tag");
-    const tagData = new AutoTagInput(tagWrap,'http://localhost:8080/api/tag/search', ${board.tags}).getTags();
+    const tagData = new AutoTagInput(tagWrap,'http://localhost:8080/api/tag/search', tagList).getTags();
 </script>

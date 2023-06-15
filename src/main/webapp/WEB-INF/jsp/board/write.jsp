@@ -67,7 +67,6 @@
         ],
         callbacks: {
             onImageUpload: function(files) {
-                console.log(files[0])
                 const url = 'http://localhost:8080/api/file/upload'
                 const formData = new FormData();
                 formData.append("file", files[0]);

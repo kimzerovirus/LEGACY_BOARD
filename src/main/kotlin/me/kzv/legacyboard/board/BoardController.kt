@@ -23,14 +23,15 @@ class BoardController(
         model: Model, @RequestParam type: String?,
         @RequestParam keyword: String?, @RequestParam page: Int?
     ): String {
-        val boardList = boardService.getList(SearchType.of(type), keyword ?: "", PageRequestDto(page))
+        val boardList = boardService.getBoardList(SearchType.of(type), keyword ?: "", PageRequestDto(page))
         model.addAttribute("boardList", PageResponseDto(boardList))
         return "index"
     }
 
     @GetMapping("/board/view/{id}")
     fun getBoard(@PathVariable id: Long, model: Model): String {
-        model.addAttribute("board", boardService.read(id))
+        val board = boardService.getBoardOneWithReplyList(id)
+        model.addAttribute("board", board)
         return "board/boardview"
     }
 
@@ -55,7 +56,7 @@ class BoardController(
         @CurrentMember member: Member,
         model: Model
     ): String {
-        val board = boardService.getOne(id)
+        val board = boardService.getBoardOne(id)
         try {
             validateWriter(writerId = board.member.id!!, authenticatedId = member.id!!)
         } catch (e: IllegalArgumentException) {
@@ -74,7 +75,7 @@ class BoardController(
     ): ResponseDto<Any> {
         with(dto) {
             validateWriter(writerId = memberId, authenticatedId = member.id!!)
-            boardService.edit(boardId, title = title, content = content)
+            boardService.edit(boardId, title = title, content = content, tags)
         }
         return ResponseDto()
     }

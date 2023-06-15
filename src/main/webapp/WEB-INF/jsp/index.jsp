@@ -47,7 +47,7 @@
         <c:forEach var="board" items="${boardList.content}">
             <tr>
                 <td class="py-3">
-                    <a href="/board/view/${board.id}" style="text-decoration: none; cursor: pointer;">
+                    <a href="/board/view/${board.id}" style="text-decoration: none; cursor: pointer; min-height: 87px; display: block;">
                         <div class="d-flex justify-content-between text-secondary mb-2">
                             <p style="margin: 0; font-size: 0.875rem;">${board.member.nickname} · ${board.count}</p>
                             <c:set var="today" value="<%=new java.util.Date()%>"/>
@@ -59,7 +59,10 @@
                                 <c:if test="${now ne parsedDate}">${parsedDate}</c:if>
                             </p>
                         </div>
-                        <h5 class="mb-2">${board.title}</h5>
+                        <h5 class="mb-3">${board.title}</h5>
+                        <c:forEach var="tag" items="${board.tags}">
+                            <small class="badge bg-secondary">#${tag.tag.name}</small>
+                        </c:forEach>
                     </a>
                 </td>
             </tr>

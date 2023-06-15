@@ -15,7 +15,11 @@ class Board(
 
     /** 댓글 */
     @OneToMany(mappedBy = "board", cascade = [CascadeType.REMOVE])
-    val replyList: MutableList<Reply> = mutableListOf(),
+    val replyList: Set<Reply> = mutableSetOf(),
+
+    /** 태그 */
+    @OneToMany(mappedBy = "board")
+    val tags: Set<BoardTag> = mutableSetOf(),
 
     /** 글 제목 */
     @Column(nullable = false)

@@ -5,24 +5,50 @@ import com.querydsl.jpa.impl.JPAQueryFactory
 import me.kzv.legacyboard.board.QBoard.board
 import me.kzv.legacyboard.board.SearchType.*
 import me.kzv.legacyboard.member.QMember.member
+import me.kzv.legacyboard.reply.QReply.reply
+import me.kzv.legacyboard.tag.QBoardTag.boardTag
+import me.kzv.legacyboard.tag.QTag.tag
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.PageImpl
 import org.springframework.data.domain.Pageable
 
-
 class BoardCustomRepositoryImpl(
     private val queryFactory: JPAQueryFactory
 ) : BoardCustomRepository {
+    override fun getBoardOne(id: Long): Board? {
+        return queryFactory
+            .selectFrom(board)
+            .leftJoin(board.member, member).fetchJoin()
+            .leftJoin(board.tags, boardTag).fetchJoin()
+            .leftJoin(boardTag.tag, tag).fetchJoin()
+            .where(board.id.eq(id))
+            .fetchOne()
+    }
+
+    override fun getBoardOneWithReplyList(id: Long): Board? {
+        return queryFactory
+            .selectFrom(board)
+            .leftJoin(board.member, member).fetchJoin()
+            .leftJoin(board.tags, boardTag).fetchJoin()
+            .leftJoin(boardTag.tag, tag).fetchJoin()
+            .leftJoin(board.replyList, reply).fetchJoin()
+            .where(board.id.eq(id))
+            .fetchOne()
+    }
+
     override fun search(searchType: SearchType, keyword: String, pageable: Pageable): Page<Board> {
         val condition = searchCondition(searchType, keyword)
 
         val content = queryFactory
             .selectFrom(board)
-            .leftJoin(board.member, member)
+            .leftJoin(board.member, member).fetchJoin() // fetch join 하지 않으면 lazy 하게 가져옴
+            .leftJoin(board.tags, boardTag).fetchJoin()
+            .leftJoin(boardTag.tag, tag).fetchJoin()
             .where(condition)
             .offset(pageable.offset)
             .limit(pageable.pageSize.toLong())
             .orderBy(board.id.desc())
+            .distinct()
             .fetch()
 
         val countQuery = queryFactory
@@ -37,14 +63,19 @@ class BoardCustomRepositoryImpl(
 
     private fun searchCondition(searchType: SearchType, keyword: String): BooleanExpression? {
         return when (searchType) {
+            NONE -> null
+            ALL -> allContains(keyword)
             TITLE -> titleContains(keyword)
             CONTENT -> contentContains(keyword)
             NICKNAME -> nicknameContains(keyword)
-            ALL -> titleContains(keyword).or(contentContains(keyword).or(nicknameContains(keyword)))
+            TAG -> tagContains(keyword)
         }
     }
 
-    private fun titleContains(keyword: String): BooleanExpression = board.title.contains(keyword)
-    private fun contentContains(keyword: String): BooleanExpression = board.content.contains(keyword)
-    private fun nicknameContains(keyword: String): BooleanExpression = member.nickname.contains(keyword)
+    private fun titleContains(keyword: String) = board.title.contains(keyword)
+    private fun contentContains(keyword: String) = board.content.contains(keyword)
+    private fun nicknameContains(keyword: String) = member.nickname.contains(keyword)
+    private fun tagContains(keyword: String) = board.tags.any().tag.name.contains(keyword)
+    private fun allContains(keyword: String) = titleContains(keyword).or(contentContains(keyword)
+                                                .or(nicknameContains(keyword).or(tagContains(keyword))))
 }

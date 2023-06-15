@@ -38,13 +38,20 @@
     </div>
 
     <div class="card mt-3">
-        <div class="card-body" style="min-height: 300px;">
+        <div class="card-body">
+            <div style="min-height: 300px;">
                 ${board.content}
+            </div>
+            <div class="mt-3">
+                <c:forEach var="tag" items="${board.tags}">
+                    <small class="badge bg-secondary">#${tag.tag.name}</small>
+                </c:forEach>
+            </div>
         </div>
         <div class="card-footer pb-3">
             <table class="table">
                 <tr>
-                    <th>댓글 목록</th>
+                    <th>댓글</th>
                 </tr>
             </table>
             <div class="d-flex align-items-end flex-column">
