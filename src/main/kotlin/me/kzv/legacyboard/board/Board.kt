@@ -21,10 +21,10 @@ class Board(
     @OneToMany(mappedBy = "board")
     val tags: Set<BoardTag> = mutableSetOf(),
 
-//    /** 토픽 */
-//    @Column(nullable = false)
-//    @Enumerated(EnumType.STRING)
-//    var topic: TopicType,
+    /** 토픽 */
+    @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
+    var topic: TopicType,
 
     /** 글 제목 */
     @Column(nullable = false)
@@ -42,9 +42,10 @@ class Board(
     /** 조회수 */
     var count: Int = -1
 
-    fun update(title: String, content: String) {
+    fun update(title: String, content: String, topic: TopicType) {
         this.title = title
         this.content = content
+        this.topic = topic
     }
 
 //    fun updateImages(images: MutableList<String>) {

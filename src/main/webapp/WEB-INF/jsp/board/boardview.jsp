@@ -43,7 +43,7 @@
                 ${board.content}
             </div>
             <div class="mt-3 d-flex">
-                <small class="block text-secondary border-1 border border-secondary" style="font-size: 12px; padding: 2px 6px;">사는 얘기</small>
+                <small class="block text-secondary border-1 border border-secondary" style="font-size: 12px; padding: 2px 6px;">${board.topic.value}</small>
                 <c:forEach var="tag" items="${board.tags}">
                     <small class="block" style="padding: 2px 6px;">#${tag.tag.name}</small>
                 </c:forEach>

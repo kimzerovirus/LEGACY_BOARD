@@ -10,7 +10,8 @@ class BoardTest {
 fun createBoard(
     title: String = "test",
     content: String = "test",
-    member: Member
+    member: Member,
+    topic: TopicType = TopicType.LIFE,
 ): Board {
-    return Board(member, title = title, content = content)
+    return Board(member, title = title, content = content, topic = topic)
 }

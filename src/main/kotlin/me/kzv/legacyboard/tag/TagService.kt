@@ -18,9 +18,7 @@ class TagService(
 
     @Transactional
     fun saveBoardTag(board: Board, tags: List<Tag>) {
-        searchAndCreate(tags, board).forEach {
-            boardTagRepository.save(it)
-        }
+       boardTagRepository.saveAll(searchAndCreate(tags, board))
     }
 
 

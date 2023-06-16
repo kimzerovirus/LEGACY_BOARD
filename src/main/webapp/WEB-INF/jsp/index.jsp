@@ -68,7 +68,7 @@
                             </h5>
                         </div>
                         <div class="d-flex">
-                            <small class="text-secondary border-1 border border-secondary block" style="padding: 2px 6px; font-size: 12px;">사는 얘기</small>
+                            <small class="text-secondary border-1 border border-secondary block" style="padding: 2px 6px; font-size: 12px;">${board.topic.value}</small>
                             <c:forEach var="tag" items="${board.tags}">
                                 <small class="block" style="padding: 2px 6px;">#${tag.tag.name}</small>
                             </c:forEach>

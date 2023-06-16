@@ -19,7 +19,10 @@
             <label for="email" class="form-label">Email:</label>
             <input type="email" class="form-control" id="email" placeholder="Enter email" name="email">
             <spring:hasBindErrors name="signupRequest">
-                <c:if test="${errors.hasFieldErrors('email') }">
+                <c:if test="${errors.hasFieldErrors('email')}">
+                    <script>
+                        document.getElementById('email').classList.add('is-invalid')
+                    </script>
                     <strong class="text-danger small">${errors.getFieldError( 'email' ).defaultMessage }</strong>
                 </c:if>
             </spring:hasBindErrors>
@@ -29,6 +32,9 @@
             <input type="text" class="form-control" id="nickname" placeholder="Enter nickname" name="nickname">
             <spring:hasBindErrors name="signupRequest">
                 <c:if test="${errors.hasFieldErrors('nickname') }">
+                    <script>
+                        document.getElementById('nickname').classList.add('is-invalid')
+                    </script>
                     <strong class="text-danger small">${errors.getFieldError( 'nickname' ).defaultMessage }</strong>
                 </c:if>
             </spring:hasBindErrors>
@@ -38,6 +44,9 @@
             <input type="password" class="form-control" id="password" placeholder="Enter password" name="password">
             <spring:hasBindErrors name="signupRequest">
                 <c:if test="${errors.hasFieldErrors('password') }">
+                    <script>
+                        document.getElementById('password').classList.add('is-invalid')
+                    </script>
                     <strong class="text-danger small">${errors.getFieldError( 'password' ).defaultMessage }</strong>
                 </c:if>
             </spring:hasBindErrors>

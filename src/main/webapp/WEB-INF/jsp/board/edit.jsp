@@ -1,9 +1,7 @@
-<%@ page import="me.kzv.legacyboard.tag.Tag" %>
-<%@ page import="java.util.List" %>
-<%@ page import="me.kzv.legacyboard.tag.BoardTag" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
+<%@ page import="me.kzv.legacyboard.board.TopicType" %>
 
 <%-- 인증된 사용자가 글쓴이와 다르다면 홈으로 이동 --%>
 <sec:authorize access="isAuthenticated()">
@@ -30,8 +28,15 @@
     </div>
 </div>
 
+<h5 class="mt-3">토픽</h5>
+<select class="form-select" name="topic" id="topic">
+    <c:forEach items="${TopicType.values()}" var="topic">
+        <option value="${topic}" <c:if test="${topic == board.topic}">selected</c:if>>${topic.value}</option>
+    </c:forEach>
+</select>
+
 <h5 class="mt-3">제목</h5>
-<input type="text" class="w-100 ps-2" placeholder="제목을 입력해주세요." id="title" name="title" value="${board.title}">
+<input type="text" class="form-control" placeholder="제목을 입력해주세요." id="title" name="title" value="${board.title}">
 
 <h5 class="mt-3">태그<small class="text-info" style="font-size: 0.875rem"> - 내용을 대표하는 태그 3개 정도 입력해주세요.</small></h5>
 <div id="tag"></div>
@@ -46,7 +51,6 @@
     <button type="button" class="btn btn-primary btn-lg px-5" id="editBoard">등록</button>
 </div>
 
-=
 <jsp:include page="../../layout/footer.jsp"></jsp:include>
 
 <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.slim.min.js"
@@ -104,6 +108,7 @@
             title: document.getElementById('title').value || '',
             content: $('#summernote').summernote('code') || '',
             memberId: "${currentUserId}",
+            topic: document.getElementById('topic').value || '',
             tags: tagData
         }
 

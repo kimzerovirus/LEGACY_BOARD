@@ -75,7 +75,7 @@ class BoardController(
     ): ResponseDto<Any> {
         with(dto) {
             validateWriter(writerId = memberId, authenticatedId = member.id!!)
-            boardService.edit(boardId, title = title, content = content, tags)
+            boardService.edit(boardId, title = title, content = content, topic, tags)
         }
         return ResponseDto()
     }

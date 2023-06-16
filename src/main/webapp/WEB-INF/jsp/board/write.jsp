@@ -1,4 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ page import="me.kzv.legacyboard.board.TopicType" %>
 
 <title>KIMZEROVIRUS | 글쓰기</title>
 
@@ -14,6 +16,12 @@
     </div>
 </div>
 
+<h5 class="mt-3">토픽</h5>
+<select class="form-select" name="topic" id="topic">
+    <c:forEach items="${TopicType.values()}" var="topic">
+        <option value="${topic}">${topic.value}</option>
+    </c:forEach>
+</select>
 <h5 class="mt-3">제목</h5>
 <input type="text" class="form-control" placeholder="제목을 입력해주세요." name="title" id="title">
 
@@ -87,7 +95,8 @@
         const body = {
             title: document.getElementById('title').value || '',
             content: $('#summernote').summernote('code') || '',
-            tags: tagData
+            tags: tagData,
+            topic: document.getElementById('topic').value || '',
         }
 
         if (body.title === '') {

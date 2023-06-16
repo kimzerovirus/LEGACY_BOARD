@@ -39,10 +39,10 @@ class BoardService(
     }
 
     @Transactional
-    fun edit(boardId: Long, title: String, content: String, tags: List<Tag>) {
+    fun edit(boardId: Long, title: String, content: String, topic: TopicType, tags: List<Tag>) {
         val board = boardRepository.getBoardOne(boardId) ?: throw TisException("게시글이 존재하지 않습니다.")
         tagService.updateBoardTag(board, tags)
-        board.update(title = title, content = content)
+        board.update(title = title, content = content, topic)
     }
 
     @Transactional
