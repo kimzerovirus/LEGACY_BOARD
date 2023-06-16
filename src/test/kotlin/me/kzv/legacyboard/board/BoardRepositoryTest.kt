@@ -37,7 +37,7 @@ class BoardRepositoryTest {
         assertThat(boardWithMemberAndReply.replyList.size).isEqualTo(0)
     }
 
-    @EnumSource(value = SearchType::class, names = ["ALL"], mode = Mode.EXCLUDE)
+    @EnumSource(value = SearchType::class, names = ["ALL", "TAG"], mode = Mode.EXCLUDE)
     @ParameterizedTest
     fun `keyword로 검색 - 글 제목, 글 내용, 닉네임`(searchType: SearchType) {
         val keyword = "test123@test.com"
