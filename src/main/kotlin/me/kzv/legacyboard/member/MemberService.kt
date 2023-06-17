@@ -1,6 +1,9 @@
 package me.kzv.legacyboard.member
 
 import me.kzv.legacyboard.infra.exception.TisException
+import me.kzv.legacyboard.member.dto.MemberActivityResponseDto
+import org.springframework.data.domain.Page
+import org.springframework.data.domain.Pageable
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 
@@ -23,5 +26,11 @@ class MemberService(
     @Transactional
     fun deleteMember(member: Member) {
         memberRepository.delete(member)
+    }
+
+    fun getMemberActivity(id: Long, pageable: Pageable): Page<MemberActivityResponseDto> {
+        return memberRepository.getMemberActivity(id, pageable).map {
+            MemberActivityResponseDto.of(it)
+        }
     }
 }
