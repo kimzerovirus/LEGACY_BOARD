@@ -29,11 +29,11 @@ server:
     context-path: /
   port: 8080
 
+corsUrl: ${cors:http://localhost:3000}
+
 ---
 
 spring:
   profiles:
     active: ${profile:local}
 
-cors:
-  url: ${cors:http://localhost:3000}

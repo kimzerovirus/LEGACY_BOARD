@@ -11,7 +11,8 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer
 class WebConfig : WebMvcConfigurer {
     @Value("\${imgPath}")
     lateinit var imgPath: String
-    @Value("\${cors.url}")
+
+    @Value("\${corsUrl}")
     lateinit var corsUrl: String
 
     override fun addResourceHandlers(registry: ResourceHandlerRegistry) {
