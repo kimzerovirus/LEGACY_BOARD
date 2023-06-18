@@ -12,7 +12,7 @@ spring:
       ddl-auto: ${db_ddl:update} # validate
     properties:
       hibernate:
-        dialect: org.hibernate.dialect.MySQL8Dialect
+        dialect: org.hibernate.dialect.MySQLDialect
 
   mvc:
     throw-exception-if-no-handler-found: true
