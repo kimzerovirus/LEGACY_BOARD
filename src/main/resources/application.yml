@@ -9,7 +9,7 @@ spring:
       minimum-idle: 1
   jpa:
     hibernate:
-      ddl-auto: ${db_ddl:create-drop} # validate
+      ddl-auto: ${db_ddl:update} # validate
     properties:
       hibernate:
         dialect: org.hibernate.dialect.MySQL8Dialect

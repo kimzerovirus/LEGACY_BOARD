@@ -41,15 +41,17 @@ class BoardCustomRepositoryImpl(
 
         val content = queryFactory
             .selectFrom(board)
-            .leftJoin(board.member, member).fetchJoin() // fetch join 하지 않으면 lazy 하게 가져옴
-            .leftJoin(board.tags, boardTag).fetchJoin()
-            .leftJoin(boardTag.tag, tag).fetchJoin()
+            .leftJoin(board.member, member)
+            .leftJoin(board.tags, boardTag)
+            .leftJoin(boardTag.tag, tag)
             .where(condition)
             .offset(pageable.offset)
             .limit(pageable.pageSize.toLong())
             .orderBy(board.id.desc())
-            .distinct()
             .fetch()
+        // fetch join 하지 않으면 lazy 하게 가져옴
+        // fetch join + pagination offset limit 가 적용되지 않고 실제로는 메모리상에서 작업함
+        // 항상 1:N 작업해버리면 문제가 생기는듯?
 
         val countQuery = queryFactory
             .select(board.count())
