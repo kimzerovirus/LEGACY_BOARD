@@ -11,6 +11,8 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer
 class WebConfig : WebMvcConfigurer {
     @Value("\${imgPath}")
     lateinit var imgPath: String
+    @Value("\${cors.url}")
+    lateinit var corsUrl: String
 
     override fun addResourceHandlers(registry: ResourceHandlerRegistry) {
         // 정적자원 매핑
@@ -20,7 +22,7 @@ class WebConfig : WebMvcConfigurer {
 
     override fun addCorsMappings(registry: CorsRegistry) {
         registry.addMapping("/**")
-            .allowedOriginPatterns("http://localhost:8080")
+            .allowedOriginPatterns("http://localhost:8080", corsUrl)
             .allowedMethods(
                 GET.name(), POST.name(), PUT.name(), PATCH.name(),
                 DELETE.name(), OPTIONS.name(), HEAD.name()

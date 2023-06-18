@@ -34,3 +34,6 @@ server:
 spring:
   profiles:
     active: ${profile:local}
+
+cors:
+  url: ${cors:http://localhost:3000}
