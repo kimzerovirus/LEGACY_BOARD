@@ -40,7 +40,7 @@ class BoardRepositoryTest {
     @EnumSource(value = SearchType::class, names = ["ALL", "TAG"], mode = Mode.EXCLUDE)
     @ParameterizedTest
     fun `keyword로 검색 - 글 제목, 글 내용, 닉네임`(searchType: SearchType) {
-        val keyword = "test123@test.com"
+        val keyword = "테스트"
         val member = memberRepository.save(createMember(nickname = keyword))
         val board = boardRepository.save(createBoard(title = keyword, content = keyword, member))
         replyRepository.save(createReply(member, board))

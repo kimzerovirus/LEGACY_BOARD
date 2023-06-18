@@ -8,7 +8,7 @@ class MemberTest{
 }
 
 fun createMember(
-    email: String = "test123@test.com",
+    email: String = "test1@test.com",
     nickname: String = "test",
     password: String = "test1234",
 ): Member {
