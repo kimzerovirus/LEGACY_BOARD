@@ -25,6 +25,8 @@ class WebConfig : WebMvcConfigurer {
                 GET.name(), POST.name(), PUT.name(), PATCH.name(),
                 DELETE.name(), OPTIONS.name(), HEAD.name()
             )
+            .allowedHeaders("*")
             .allowCredentials(true)
+            .maxAge(3600)
     }
 }
