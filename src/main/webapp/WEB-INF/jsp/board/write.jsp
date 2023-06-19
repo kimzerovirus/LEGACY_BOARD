@@ -75,7 +75,7 @@
         ],
         callbacks: {
             onImageUpload: function(files) {
-                const url = 'http://localhost:8080/api/file/upload'
+                const url = '/api/file/upload'
                 const formData = new FormData();
                 formData.append("file", files[0]);
 
@@ -90,7 +90,7 @@
     });
 
     document.getElementById('createBoard').addEventListener('click', () => {
-        const url = 'http://localhost:8080/api/board/write'
+        const url = '/api/board/write'
         const method = 'POST'
         const body = {
             title: document.getElementById('title').value || '',
@@ -109,5 +109,5 @@
     })
 
     const tagWrap = document.getElementById("tag");
-    const tagData = new AutoTagInput(tagWrap,'http://localhost:8080/api/tag/search').getTags();
+    const tagData = new AutoTagInput(tagWrap,'/api/tag/search').getTags();
 </script>

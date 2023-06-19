@@ -138,7 +138,7 @@
 
     if (deleteBoard) {
         document.getElementById('deleteBoard').addEventListener('click', () => {
-            const url = 'http://localhost:8080/api/board/delete'
+            const url = '/api/board/delete'
             const method = 'POST'
             const body = {
                 boardId: ${board.id},
@@ -164,7 +164,7 @@
                 alert("로그인이 필요합니다.")
                 </sec:authorize>
                 <sec:authorize access="isAuthenticated()">
-                const url = 'http://localhost:8080/api/reply/create'
+                const url = '/api/reply/create'
                 const method = 'POST'
                 const body = {
                     boardId: ${board.id},
@@ -195,7 +195,7 @@
             const editReply = document.getElementById('editReply')
             editReply.addEventListener('submit', e => {
                 e.preventDefault();
-                const url = 'http://localhost:8080/api/reply/edit'
+                const url = '/api/reply/edit'
                 const method = 'POST'
                 const body = {
                     replyId: e.target.editReplyId.value,
@@ -215,7 +215,7 @@
             if(deleteReply.length > 0){
                 deleteReply.forEach(item => {
                     item.addEventListener('click', (e) => {
-                        const url = 'http://localhost:8080/api/reply/delete'
+                        const url = '/api/reply/delete'
                         const method = 'POST'
                         const body = {
                             replyId: e.target.dataset.id,
