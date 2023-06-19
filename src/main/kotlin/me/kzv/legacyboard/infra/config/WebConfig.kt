@@ -12,9 +12,6 @@ class WebConfig : WebMvcConfigurer {
     @Value("\${imgPath}")
     lateinit var imgPath: String
 
-    @Value("\${corsUrl}")
-    lateinit var corsUrl: String
-
     override fun addResourceHandlers(registry: ResourceHandlerRegistry) {
         // 정적자원 매핑
         registry.addResourceHandler("/resources/**").addResourceLocations("classpath:/static/")
@@ -23,7 +20,7 @@ class WebConfig : WebMvcConfigurer {
 
     override fun addCorsMappings(registry: CorsRegistry) {
         registry.addMapping("/**")
-            .allowedOriginPatterns("http://localhost:8080", corsUrl)
+            .allowedOriginPatterns("http://localhost:8080")
             .allowedMethods(
                 GET.name(), POST.name(), PUT.name(), PATCH.name(),
                 DELETE.name(), OPTIONS.name(), HEAD.name()

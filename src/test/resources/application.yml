@@ -12,5 +12,4 @@ spring:
   profiles:
     include: local
 
-corsUrl: ${cors:http://localhost:3000}
 uploadPath: /users/zerovirus/desktop/code/legacy-board/src/main/resources/static/img/
