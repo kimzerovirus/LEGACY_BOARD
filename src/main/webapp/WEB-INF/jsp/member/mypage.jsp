@@ -25,7 +25,7 @@
                         <div>
                             <div class="d-flex justify-content-between text-secondary mb-2">
                                 <p style="margin: 0; font-size: 0.875rem;">
-                                    <span class="text-primary fw-bold"><c:if test="${activity.tableName == 'BOARD'}">게시글</c:if><c:if test="${activity.tableName == 'REPLY'}">댓글</c:if></span>을 작성하였습니다.
+                                    <span class="text-info fw-bold"><c:if test="${activity.tableName == 'BOARD'}">게시글</c:if><c:if test="${activity.tableName == 'REPLY'}">댓글</c:if></span>을 작성하였습니다.
                                 </p>
                                 <c:set var="today" value="<%=new java.util.Date()%>"/>
                                 <fmt:formatDate var="now" type="date" value="${today}" pattern="yyyy-MM-dd"/>
@@ -49,6 +49,15 @@
         </c:forEach>
         </tbody>
     </table>
+</c:if>
+
+<c:if test="${empty memberActivityList.pageList}">
+    <div class="d-flex justify-content-center h-75 mt-3 align-items-center">
+        <div class="d-flex flex-column justify-content-center">
+            <h3 class="text-center">"<span class="text-danger">활동내역</span>"이 존재하지 않습니다.</h3>
+            <a href="/board/write" class="card-link text-center">첫 번째 활동하러 가기</a>
+        </div>
+    </div>
 </c:if>
 
 <c:if test="${!empty memberActivityList.pageList}">

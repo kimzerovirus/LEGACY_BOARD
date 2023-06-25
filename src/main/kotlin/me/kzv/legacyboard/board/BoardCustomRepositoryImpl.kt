@@ -44,6 +44,7 @@ class BoardCustomRepositoryImpl(
             .leftJoin(board.member, member)
             .leftJoin(board.tags, boardTag)
             .leftJoin(boardTag.tag, tag)
+            .distinct()
             .where(condition)
             .offset(pageable.offset)
             .limit(pageable.pageSize.toLong())

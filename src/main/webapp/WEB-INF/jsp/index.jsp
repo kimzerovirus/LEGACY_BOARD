@@ -34,7 +34,6 @@
 </div>
 
 <c:if test="${!empty boardList.content}">
-
     <table class="table mt-3">
     <c:if test="${param.keyword ne null}">
         <c:if test="${boardList.count > 0}">
@@ -43,10 +42,13 @@
         </thead>
         </c:if>
     </c:if>
+    <c:if test="${param.keyword eq null}">
         <thead>
-        <th></th>
+            <th></th>
         </thead>
+    </c:if>
         <tbody>
+
         <c:forEach var="board" items="${boardList.content}">
             <tr>
                 <td class="py-3">
@@ -117,13 +119,11 @@
     <c:if test="${empty boardList.content}">
         <div class="d-flex justify-content-center h-75 mt-3 align-items-center">
             <div class="d-flex flex-column justify-content-center">
-                <h3 class="text-center">게시글이 존재하지 않습니다.</h3>
-                <a href="/board/write" class="card-link text-center">첫번째 게시글을 올려주세요.</a>
+                <h3 class="text-center">"<span class="text-danger">게시글</span>"이 존재하지 않습니다.</h3>
+                <a href="/board/write" class="card-link text-center">첫 번째 게시글을 올려주세요.</a>
             </div>
         </div>
     </c:if>
 </c:if>
 
 <jsp:include page="../layout/footer.jsp"></jsp:include>
-
-

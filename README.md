@@ -1,3 +1,13 @@
+## 현재 리포지토리 이 외 활동들
+
+[팀프로젝트 구경하러 가기](https://github.com/Chanqun-Co/carsharing)
+
+[개인블로그 구경하러 가기](https://github.com/kimzerovirus/kimzerovirus.github.io)
+
+<br/>
+
+<br/>
+
 ## 📺 [프로젝트 구경하러 가기](http://ec2-3-36-35-135.ap-northeast-2.compute.amazonaws.com/)
 
 테스트 계정
@@ -7,7 +17,7 @@
 
 ## 🔖 소개
 
-bla~
+그 동안 공부했던 기술들인 코틀린, 스프링 시큐리티, ORM 기술들을 가지고 혼자서 간단한 게시판 서비스를 구축하였습니다. 배포는 github action을 이용하여 S3에 업로드 후 Code Deploy를 이용하여 EC2에 배포 되도록 설정하였습니다.
 
 ## 📚 기술스택
 
@@ -17,12 +27,36 @@ bla~
 | BackEnd        | Kotiln, Spring Boot, Spring Security, Spring Data JPA    |      |
 | Database       | MySQL							             |      |
 | Cloud Services | AWS EC2, AWS RDS, AWS S3 			 |      |
-## 아키텍처
+## 📋ERD
 
+![](./docs/img/table-erd.png)
 
+## 📄 프로젝트 페이지
 
-## 이 외 활동들
+### 메인화면
 
-[팀프로젝트 구경하러 가기](https://github.com/Chanqun-Co/carsharing)
+![](./docs/img/메인화면.jpeg)
 
-[개인블로그 구경하러 가기](https://github.com/kimzerovirus/kimzerovirus.github.io)
+### 회원가입
+
+![회원가입](./docs/img/회원가입.JPG)
+
+![유효성 검사](./docs/img/유효성 검사.JPG)
+
+### 로그인
+
+![로그인화면](./docs/img/로그인화면.JPG)
+
+### 글 검색
+
+![글 검색](./docs/img/글 검색.JPG)
+
+### 글 쓰기
+
+![글쓰기](./docs/img/글쓰기.JPG)
+
+![검색 결과가 없는 경우](./docs/img/검색 결과가 없는 경우.JPG)
+
+### 마이페이지
+
+![마이페이지](./docs/img/마이페이지.JPG)
