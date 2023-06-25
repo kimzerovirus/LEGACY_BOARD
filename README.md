@@ -1,14 +1,20 @@
 ## 현재 리포지토리 이 외 활동들
 
-[팀프로젝트 구경하러 가기](https://github.com/Chanqun-Co/carsharing)
+**[팀프로젝트 구경하러 가기](https://github.com/Chanqun-Co/carsharing)**
+> 
 
-[개인블로그 구경하러 가기](https://github.com/kimzerovirus/kimzerovirus.github.io)
+**[개인블로그 구경하러 가기](https://github.com/kimzerovirus/kimzerovirus.github.io)**
+
+> 
 
 <br/>
 
 <br/>
 
 ## 📺 [프로젝트 구경하러 가기](http://ec2-3-36-35-135.ap-northeast-2.compute.amazonaws.com/)
+
+<a href="http://ec2-3-36-35-135.ap-northeast-2.compute.amazonaws.com/" target="_blank">프로젝트 링크</a>
+
 
 테스트 계정
 
@@ -17,7 +23,7 @@
 
 ## 🔖 소개
 
-그 동안 공부했던 기술들인 코틀린, 스프링 시큐리티, ORM 기술들을 가지고 혼자서 간단한 게시판 서비스를 구축하였습니다. 배포는 github action을 이용하여 S3에 업로드 후 Code Deploy를 이용하여 EC2에 배포 되도록 설정하였습니다.
+그 동안 공부했던 기술들인 코틀린, 스프링 시큐리티, ORM 기술들을 가지고 혼자서 간단한 게시판 서비스를 구축하였습니다. 배포는 github action을 이용하여 S3에 업로드 후 Code Deploy를 이용하여 EC2에 배포 되도록 설정하였습니다. 주요 기능으로는 위지윅 에디터를 사용한 게시글 작성 및 이미지 업로드와 토픽, 태그 기능 등이 있습니다.
 
 ## 📚 기술스택
 
