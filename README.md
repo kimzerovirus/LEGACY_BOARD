@@ -1,6 +1,6 @@
 ## 현재 리포지토리 이 외 활동들
 
-**[팀프로젝트 구경하러 가기](https://github.com/Chanqun-Co/carsharing)**
+**[1. 팀프로젝트 구경하러 가기](https://github.com/Chanqun-Co/carsharing)**
 
 > 지인들과 차량 공유 플랫폼을 주제로 만든 토이프로젝트입니다. 아직 미완성이지만 페어프로그래밍 등 팀원 간의 코드리뷰를 활발히 하여 협업에 있어 많은 것을 배운 프로젝트입니다.
 >
@@ -8,7 +8,7 @@
 >
 > [프로젝트에서 있었던 일](https://ekgoddldi.tistory.com/281)
 
-**[개인블로그 구경하러 가기](https://github.com/kimzerovirus/kimzerovirus.github.io)**
+**[2. 개인블로그 구경하러 가기](https://github.com/kimzerovirus/kimzerovirus.github.io)**
 
 > next.js를 학습하며 만들었던 마크다운 블로그입니다. 마크다운 파일을 읽어들이는 시스템 구현하는 부분이 조금 어려웠지만 마크다운 데이터를 들여와 제가 원하는 대로 스타일링을 적용해 화면에 띄어줄 수 있어 재밌었던 프로젝트입니다. <br/>
 >
@@ -41,19 +41,19 @@
 | Cloud Services | AWS EC2, AWS RDS, AWS S3 			 |      |
 ## 📋ERD
 
-![](docs/imgs/table-erd.png)
+![erd](docs/imgs/table-erd.png)
 
 ## 📄 프로젝트 페이지
 
 ### 메인화면
 
-![](docs/imgs/mainpage.jpeg)
+![mainpage](docs/imgs/mainpage.jpeg)
 
 ### 회원가입
 
 ![회원가입](docs/imgs/signup.JPG)
 
-<p style="text-align:center">
+<p align="center">
 spring boot-validation을 활용해 중복 이메일과 중복된 닉네임을 체크하여 아래 이미지와 같이 반환합니다.
 </p>
 
@@ -68,7 +68,7 @@ spring boot-validation을 활용해 중복 이메일과 중복된 닉네임을 �
 
 ![글 검색](./docs/imgs/search-result.JPG)
 
-<p style="text-align:center">
+<p align="center">
 Querydsl을 활용하여 제목, 내용, 닉네임, 태그의 세분화 된 검색 기능을 제공합니다.
 </p>
 
@@ -80,7 +80,7 @@ Querydsl을 활용하여 제목, 내용, 닉네임, 태그의 세분화 된 검�
 
 ![글쓰기](docs/imgs/write.JPG)
 
-<p style="text-align:center">
+<p align="center">
 summernote 위지윅 에디터를 활용하여 이미지 삽입 밑 글자 스타일 등의 설정을 할 수 있습니다.
 </p>
 
@@ -92,6 +92,6 @@ summernote 위지윅 에디터를 활용하여 이미지 삽입 밑 글자 스�
 ### 마이페이지
 
 ![마이페이지](docs/imgs/mypage.JPG)
-<p style="text-align:center">
+<p align="center">
 로그인한 계정의 활동내역(게시글, 댓글)을 조회할 수 있습니다.
 </p>
