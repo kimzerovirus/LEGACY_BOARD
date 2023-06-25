@@ -35,28 +35,28 @@
 
 ### 메인화면
 
-![](docs/imgs/메인화면.jpeg)
+![](docs/imgs/mainpage.jpeg)
 
 ### 회원가입
 
-![회원가입](docs/imgs/회원가입.JPG)
+![회원가입](docs/imgs/signup.JPG)
 
-![유효성 검사](./docs/img/유효성 검사.JPG)
+![유효성 검사](./docs/imgs/validate.JPG)
 
 ### 로그인
 
-![로그인화면](docs/imgs/로그인화면.JPG)
+![로그인화면](docs/imgs/login.JPG)
 
 ### 글 검색
 
-![글 검색](./docs/img/글 검색.JPG)
+![글 검색](./docs/imgs/search-result.JPG)
+
+![검색 결과가 없는 경우](./docs/imgs/non-search-result.JPG)
 
 ### 글 쓰기
 
-![글쓰기](docs/imgs/글쓰기.JPG)
-
-![검색 결과가 없는 경우](./docs/img/검색 결과가 없는 경우.JPG)
+![글쓰기](docs/imgs/write.JPG)
 
 ### 마이페이지
 
-![마이페이지](docs/imgs/마이페이지.JPG)
+![마이페이지](docs/imgs/mypage.JPG)
