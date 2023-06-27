@@ -48,6 +48,9 @@ dependencies {
     // 스프링 높은 버전에서 embedded tomcat jar 실행시 이슈 있음
     implementation("org.springframework.security:spring-security-taglibs") // jsp spring security library
 
+    // aws
+    implementation("org.springframework.cloud:spring-cloud-starter-aws:2.2.6.RELEASE")
+
     // Querydsl 추가
     implementation("com.querydsl:querydsl-jpa:5.0.0:jakarta")
     kapt("com.querydsl:querydsl-apt:${dependencyManagement.importedProperties["querydsl.version"]}:jakarta")
