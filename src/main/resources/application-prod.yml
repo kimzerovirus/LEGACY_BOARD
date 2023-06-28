@@ -1,3 +1,6 @@
+uploadPath:
+imgPath:
+
 cloud:
   aws:
     region:
@@ -9,3 +12,4 @@ cloud:
       secret-key: ${s3_secret_key}
     s3:
       bucket: ${s3_bucket}
+
