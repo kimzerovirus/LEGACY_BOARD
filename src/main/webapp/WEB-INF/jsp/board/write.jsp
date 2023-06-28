@@ -82,6 +82,7 @@
                 axios.post(url, formData)
                     .then(({data}) => {
                         const url = data.data.url
+                        console.log(url)
                         const imgurl = $('<img>').attr({ 'src': url });
                         $('#summernote').summernote('insertNode', imgurl[0]);
                     })

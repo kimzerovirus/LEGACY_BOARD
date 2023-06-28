@@ -12,8 +12,8 @@ class FileController(
 ) {
     @PostMapping("/api/file/upload")
     fun upload(file: MultipartFile): ResponseDto<FileResponseDto> {
-        println(file)
         val url = fileService.uploadFile(file)
+        println(url)
         return ResponseDto(data = FileResponseDto(url))
     }
 }
