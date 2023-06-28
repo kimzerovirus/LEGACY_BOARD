@@ -1,10 +1,7 @@
-uploadPath: notyet
-imgPath: notyet
-
 cloud:
   aws:
     region:
-      static: ap-northeast-2
+      static: ${s3_region}
     stack:
       auto: false
     credentials:

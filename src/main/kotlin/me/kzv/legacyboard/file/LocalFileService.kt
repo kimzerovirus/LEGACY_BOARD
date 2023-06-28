@@ -20,7 +20,6 @@ class LocalFileService : FileService {
         val saveImgName: String = UUID.randomUUID().toString() + extractExt(file.originalFilename!!)
         val fileUploadFullUrl = uploadPath + saveImgName
         file.transferTo(File(fileUploadFullUrl))
-        val imgUrl = "http://localhost:8080/images/$saveImgName"
-        return imgUrl
+        return "http://localhost:8080/images/$saveImgName"
     }
 }
