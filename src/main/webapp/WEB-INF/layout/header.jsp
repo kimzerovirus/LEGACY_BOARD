@@ -41,6 +41,7 @@
             flex: 1;
         }
     </style>
+    <script src="/resources/vendor/bootstrap/bootstrap.min.js" defer></script>
 </head>
 <body>
 <div class="wrapper">
@@ -50,6 +51,7 @@
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mynavbar">
                 <span class="navbar-toggler-icon"></span>
             </button>
+
             <div class="collapse navbar-collapse" id="mynavbar">
                 <ul class="navbar-nav me-auto">
                     <sec:authorize access="!isAuthenticated()">
