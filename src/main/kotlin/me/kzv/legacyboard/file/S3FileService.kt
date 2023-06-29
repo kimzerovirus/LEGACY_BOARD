@@ -4,6 +4,7 @@ import com.amazonaws.services.s3.AmazonS3Client
 import com.amazonaws.services.s3.model.CannedAccessControlList
 import com.amazonaws.services.s3.model.ObjectMetadata
 import com.amazonaws.services.s3.model.PutObjectRequest
+import me.kzv.legacyboard.infra.utils.logger
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.context.annotation.Profile
 import org.springframework.stereotype.Service
@@ -21,6 +22,8 @@ class S3FileService (
     @Value("\${cloud.aws.s3.bucket}")
     lateinit var bucket: String
 
+    val log = logger()
+
     override fun uploadFile(file: MultipartFile): String {
         val objectMetadata = ObjectMetadata()
         objectMetadata.contentType = file.contentType
@@ -36,7 +39,8 @@ class S3FileService (
                 )
             }
         } catch (e: IOException) {
-            throw IllegalStateException("S3 파일 업로드에 실패했습니다.")
+            log.warn("s3 이미지 업로드 실패")
+            throw IllegalStateException("이미지 업로드에 실패했습니다.")
         }
 
         return amazonS3Client.getUrl(bucket, fileName).toString()

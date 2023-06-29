@@ -26,7 +26,8 @@ else
   kill -9 $CURRENT_PID
 fi
 
-DEPLOY_JAR=$DEPLOY_PATH$JAR_NAME
+#DEPLOY_JAR=$DEPLOY_PATH$JAR_NAME
+DEPLOY_JAR=/home/ubuntu/$PROJECT_NAME/legacy-board-0.0.1-SNAPSHOT.war
 echo "> DEPLOY_JAR 배포" >> $DEPLOY_LOG_PATH
 nohup java -Djdk.util.jar.enableMultiRelease=false -jar $DEPLOY_JAR & # >> $APPLICATION_LOG_PATH 2 > $DEPLOY_ERR_LOG_PATH &
 
