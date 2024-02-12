@@ -44,7 +44,7 @@
 | FrontEnd       | Jsp, Bootstrap, summernote-editor               |      |
 | BackEnd        | Kotiln, Spring Boot, Spring Security, Spring Data JPA, Querydsl |      |
 | Database       | MySQL							             |      |
-| Cloud Services | AWS EC2, AWS RDS, AWS S3 			 |      |
+| Cloud Services | AWS EC2, AWS RDS, AWS S3 | 현재는 운영하고 있지 않습니다. |
 ## 📋ERD
 
 ![erd](docs/imgs/table-erd.png)
